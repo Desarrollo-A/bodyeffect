@@ -1,0 +1,89 @@
+.btn-edit{
+    border: 1px solid #0068ad ;
+    color: #0068ad; 
+}
+.btn-edit:hover, .btn-edit:focus, .btn-edit:focus-visible{
+    border: 1px solid #0068ad!important;
+    background-color: #0068ad;
+    color: #fff;
+}
+.btn-green{
+    border: 1px solid #00ad09;
+    color: #00ad09;
+}
+.btn-green:hover, .btn-green:focus, .btn-green:focus-visible{
+    border: 1px solid #00ad09!important;
+    background-color: #00ad09;
+    color: #fff;
+}
+.btn-red{
+    border: 1px solid #db1f19;
+    color: #db1f19;
+}
+.btn-red:hover, .btn-red:focus, .btn-red:focus-visible{
+    border: 1px solid #db1f19!important;
+    background-color: #db1f19;
+    color: #fff;
+}
+
+/* Estilos para Spinner */
+.lds-dual-ring.hidden {
+    display: none;
+}
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 5% auto;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #1b021ee6;
+    z-index: 9999999;
+    opacity: 1;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+}
+/* Estilos para Spinner */
+
+/* Table styles */
+.table .filtertable{
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #cfcfcf;
+    text-align: center;
+}
+.table .btn-table{
+    border-radius: 30px;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+}
+
+.inp-be{
+    border: none;
+    border-bottom: 1px solid #333;
+}

@@ -1,0 +1,156 @@
+/* Estilo del scroll en main-principal */
+    /* El background del scroll */
+    .scroll-styles::-webkit-scrollbar-track{
+        border-radius: 12px;
+        background-color: transparent;
+    }
+    /* El background del scroll (border)*/
+    .scroll-styles::-webkit-scrollbar{
+        width: 9px;
+        background-color: transparent;
+    }
+    /* Color de la barra de desplazamiento */
+    .scroll-styles::-webkit-scrollbar-thumb{
+        border-radius: 12px;
+        background-color: #c1c1c1;
+    }
+    /* Color del HOVER de barra de desplazamiento */
+    .scroll-styles::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8;
+    }
+    /* END Estilo del scroll en main-principal */
+
+    /* Scroll select_cliente cobranza */
+    .select2-results__options::-webkit-scrollbar-track{
+        border-radius: 12px!important;
+        background-color: transparent!important;
+    }
+    
+    .select2-results__options::-webkit-scrollbar{
+        width: 9px!important;
+        background-color: transparent!important;
+    }
+    
+    .select2-results__options::-webkit-scrollbar-thumb{
+        border-radius: 12px!important;
+        background-color: #c1c1c1!important;
+    }
+    
+    .select2-results__options::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8!important;
+    }
+    /* END Scroll select_cliente cobranza */
+
+    /* Scroll parcialidades de contrato en cobranza*/
+    .box-estado-pagos::-webkit-scrollbar-track{
+        border-radius: 12px!important;
+        background-color: transparent!important;
+    }
+    
+    .box-estado-pagos::-webkit-scrollbar{
+        width: 9px!important;
+        background-color: transparent!important;
+    }
+    
+    .box-estado-pagos::-webkit-scrollbar-thumb{
+        border-radius: 12px!important;
+        background-color: #c1c1c1!important;
+    }
+    
+    .box-estado-pagos::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8!important;
+    }
+    /* END Scroll parcialidades de contrato en cobranza*/
+
+    /* Scroll en agenda */
+    .fc-scroller::-webkit-scrollbar-track{
+        border-radius: 10px!important;
+        background-color: transparent!important;
+    }
+    /* El background del scroll (border)*/
+    .fc-scroller::-webkit-scrollbar{
+        width: 9px!important;
+        background-color: transparent!important;
+    }
+    /* LA barra de desplazamiento */
+    .fc-scroller::-webkit-scrollbar-thumb{
+        border-radius: 10px!important;
+        background-color: #c1c1c1!important;
+    }
+    /* Color del HOVER de barra de desplazamiento */
+    .fc-scroller::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8!important;
+    }
+    /* END Scroll en agenda */
+
+    /* Scroll para modal de historial del expediente*/
+    #Modal_historial_expediente::-webkit-scrollbar-track{
+        border-radius: 10px!important;
+        background-color: transparent!important;
+    }
+    #Modal_historial_expediente::-webkit-scrollbar{
+        width: 9px!important;
+        background-color: transparent!important;
+    }
+    #Modal_historial_expediente::-webkit-scrollbar-thumb{
+        border-radius: 10px!important;
+        background-color: #c1c1c1!important;
+    }
+    #Modal_historial_expediente::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8!important;
+    }
+    /* END Scroll para modal de historial del expediente*/
+    
+    /* Scroll para modal de nuevo registro en expediente*/
+    #Modal_registro_expediente::-webkit-scrollbar-track{
+        border-radius: 10px!important;
+        background-color: transparent!important;
+    }
+    #Modal_registro_expediente::-webkit-scrollbar{
+        width: 9px!important;
+        background-color: transparent!important;
+    }
+    #Modal_registro_expediente::-webkit-scrollbar-thumb{
+        border-radius: 10px!important;
+        background-color: #c1c1c1!important;
+    }
+    #Modal_registro_expediente::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8!important;
+    }
+    /* END Scroll para modal de nuevo registro en expediente*/
+
+    /* Scroll para modal de historial pagos en consulta caja */
+    #historial_modal::-webkit-scrollbar-track{
+        border-radius: 10px!important;
+        background-color: transparent!important;
+    }
+    #historial_modal::-webkit-scrollbar{
+        width: 9px!important;
+        background-color: transparent!important;
+    }
+    #historial_modal::-webkit-scrollbar-thumb{
+        border-radius: 10px!important;
+        background-color: #c1c1c1!important;
+    }
+    #historial_modal::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8!important;
+    }
+    /* END Scroll para modal de historial pagos en consulta caja */
+
+    /* Scroll para modal de historial pagos en consulta caja */
+    #details_modal::-webkit-scrollbar-track{
+        border-radius: 10px!important;
+        background-color: transparent!important;
+    }
+    #details_modal::-webkit-scrollbar{
+        width: 9px!important;
+        background-color: transparent!important;
+    }
+    #details_modal::-webkit-scrollbar-thumb{
+        border-radius: 10px!important;
+        background-color: #c1c1c1!important;
+    }
+    #details_modal::-webkit-scrollbar-thumb:hover{
+        background-color: #A8A8A8!important;
+    }
+    /* END Scroll para modal de historial pagos en consulta caja */

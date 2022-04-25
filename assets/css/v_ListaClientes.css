@@ -1,0 +1,254 @@
+
+/*-------------------------LO QUE YA TENÍA EN LA VISTA-------------------------------*/
+
+#tabla_clientes_filter {
+        display: none;
+    }
+
+    #tabla_clientes_paginate {
+        position: absolute;
+        right: 0;
+    }
+
+    .btn-body {
+        border-radius: 25px;
+        color: white;
+        border: none;
+        background-color: #bd98e0;
+    }
+
+    .btn-body:hover {
+        background-color: white;
+        color: #333;
+    }
+
+    .btn-cir {
+        border-radius: 50%;
+        border-width: 1px;
+        border-style: solid;
+        margin-right: 2px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        color: white !important;
+        border: 0px solid #111;
+        background-color: transparent;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent), color-stop(100%, transparent));
+        background: -webkit-linear-gradient(top, transparent 0%, transparent 100%);
+        background: -moz-linear-gradient(top, transparent 0%, transparent 100%);
+        background: -ms-linear-gradient(top, transparent 0%, transparent 100%);
+        background: -o-linear-gradient(top, transparent 0%, transparent 100%);
+        background: linear-gradient(to bottom, transparent 0%, transparent 100%);
+    }
+
+    .paginate_button a:focus {
+        outline: none !important;
+        border: none !important;
+    }
+
+    select {
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        height: 30px;
+        padding: 5px;
+        width: 10px;
+    }
+
+    /*modales*/
+    .modal.show .modal-dialog {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    .modal-header {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .modal-body {
+        position: relative;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 15px;
+    }
+
+    .modal-footer {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        padding: 15px;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .progress-bar.indeterminate {
+        position: relative;
+        animation: progress-indeterminate 1s linear infinite;
+    }
+
+    @keyframes progress-indeterminate {
+        from {
+            left: -25%;
+            width: 25%;
+        }
+        to {
+            left: 100%;
+            width: 25%;
+        }
+    }
+
+    .hide {
+        display: none;
+    }
+
+    /*ESTILOS PARA SPINNER*/
+    .lds-dual-ring.hidden {
+        display: none;
+    }
+    .lds-dual-ring {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+    }
+    .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 5% auto;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #1b021ee6;
+        z-index: 9999999;
+        opacity: 1;
+        transition: all 0.5s;
+        display: flex;
+        align-items: center;
+    }
+    .card-header{
+        border-bottom: none;
+        background-color: white;
+    }
+
+
+
+/*--------------------------------------*/
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.btn-circle-bigger {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.round-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 50%;
+}
+
+.btn-circle.btn-sm {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    font-size: 8px;
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-circle.btn-md {
+    width: 40px;
+    height: 40px;
+    padding: 7px 10px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+/*----------------------------LO DE LA DATATABLE--------------------------*/
+
+.pagination{
+    margin:0px!important;
+}
+
+.bottom-table{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: 0px solid #111;
+    background-color: transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent), color-stop(100%, transparent));
+    background: -webkit-linear-gradient(top, transparent 0%, transparent 100%);
+    background: -moz-linear-gradient(top, transparent 0%, transparent 100%);
+    background: -ms-linear-gradient(top, transparent 0%, transparent 100%);
+    background: -o-linear-gradient(top, transparent 0%, transparent 100%);
+    background: linear-gradient(to bottom, transparent 0%, transparent 100%);
+}
+
+
+/*------------------------------------------------------*/
