@@ -1,0 +1,45 @@
+### .idea ###
+.idea
+.idea/*
+
+### VisualStudioCode ###
+.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# omitir base en application
+application/cache/*
+application/config/*
+application/core/*
+application/helpers/*
+application/hooks/*
+application/language/*
+application/libraries/*
+application/logs/*
+application/vendor/*
+application/third_party/*
+
+# omitir archivos binarios
+assets/expediente/*
+assets/img/*
+assets/temporales/*
+img/*
+
+# omitir plugs en static
+#omitimos todo core (no cambia)
+system/*
