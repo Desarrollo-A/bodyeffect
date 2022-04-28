@@ -1011,7 +1011,7 @@ require "menu.php";
 					}
 				}
 
-				$("#Modal_registro_expediente .expediente_body").append('<div class="row m-auto" style="width:100%"><div class="col-md-6"><label style="font-size:12px;"><b style="font-size:12px;">Fecha de la cita: </b></label><input type="date" class="form-control" name="fecha_cita" value="" required></div><div class="col-md-6"><label style="font-size:12px;"><b style="font-size:12px;">Responsable: </b></label><select class="form-control" id="responsable" name="responsable" required><option selected disabled>Seleccione una opción.</option></select></div></div>');
+				$("#Modal_registro_expediente .expediente_body").append('<div class="row m-auto" style="width:100%"><div class="col-md-6"><label style="font-size:12px;"><b style="font-size:12px;">Fecha de la cita: </b></label><input type="date" class="form-control" name="fecha_cita" value="<?php echo date('Y-m-d')?>" required readonly></div><div class="col-md-6"><label style="font-size:12px;"><b style="font-size:12px;">Responsable: </b></label><select class="form-control" id="responsable" name="responsable" required><option selected disabled>Seleccione una opción.</option></select></div></div>');
 				$("#Modal_registro_expediente .expediente_footer").append('<div style="display:flex; justify-content:flex-start; width:100%"><button type="button" class="btn btn-body return">REGRESAR</button></div><div style="display:flex; justify-content:flex-end; width:100%"><button type="submit" class="btn btn-body" id="save_exp" style="margin-right: 10px;">GUARDAR</button><button type="button" class="btn btn-body" data-dismiss="modal">CANCELAR</button></div>');
 				$.getJSON("Expedientes/get_enfermeras/").done(function (data) {
 					$.each(data, function (i, v) {
