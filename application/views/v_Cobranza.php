@@ -968,11 +968,15 @@ require "menu.php";
 	function arm_table_abonos(url_table){
 		table_abonos = jQuery('#see_details').DataTable({
 			responsive: true,
-			dom: 'Bfrti',
+			dom: 'rt' + "<'container'<'row'<'col-12 col-sm-12 col-md-6 col-lg-6'i><'col-12 col-sm-12 col-md-6 col-lg-6'p>>>",
       "searching": false,
 			"pageLength": 10,
-			"language": {
-				"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+			language: {
+				url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+        paginate: {
+          previous: "<i class='fa fa-angle-left'>",
+          next: "<i class='fa fa-angle-right'>"
+        }
 			},
 			"destroy": true,
 			"ordering": false,
