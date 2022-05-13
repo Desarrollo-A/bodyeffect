@@ -88,7 +88,7 @@ class Expedientes_model extends CI_Model {
         INNER JOIN clientes_x_areas cxa ON cxa.id_paquete = paq.id_paquete AND cxa.estatus = 1
         INNER JOIN areas ar ON ar.id_area = cxa.id_area GROUP BY cl.id_cliente, cl.nombre, cl.apellido_paterno, cl.apellido_materno, cl.correo, cl.telefono");
      }
-     function get_enfermeras(){
+     function get_enfermeras() {
         return $this->db->query("SELECT * FROM usuarios WHERE id_rol = 3 AND estatus = 1");
     }
 
