@@ -282,24 +282,19 @@ class Archivos extends CI_Controller {
         //Se retornan los diferentes contratos dependiente del tipo de areas que contenga dicho contrato.
         if($formadepago != 5){
             if ($area == 1){
-                // $html_contrato_plus .= '<p align="center" style="page-break-before:always; font-size:12px;"><b>CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES PARA EL TRATAMIENTO DE DEPILACIÓN LÁSER 11111111</p>';
                 $html_contrato_plus = $this->contratoDepilacion($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $noMensualidades, $prosa, $fecha_inicial, $quincenaValue);
             }
             else if ($area == 2){
-                $html_contrato_plus .= '<p align="center" style="page-break-before:always; font-size:12px;"><b>CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES PARA EL TRATAMIENTO DE DEPILACIÓN LÁSER 22222222</p>';
-                // $html_contrato_plus = $this->contratoMoldeo($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $noMensualidades, $prosa, $fecha_inicial, $quincenaValue);
+                $html_contrato_plus = $this->contratoMoldeo($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $noMensualidades, $prosa, $fecha_inicial, $quincenaValue);
             }
             else if ($area == 3){
-                $html_contrato_plus .= '<p align="center" style="page-break-before:always; font-size:12px;"><b>CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES PARA EL TRATAMIENTO DE DEPILACIÓN LÁSER 3333333333</p>';
-                // $html_contrato_plus = $this->contratoDepMol($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $noMensualidades, $prosa, $fecha_inicial, $quincenaValue);
+                $html_contrato_plus = $this->contratoDepMol($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $noMensualidades, $prosa, $fecha_inicial, $quincenaValue);
             }
             else if($area == 4){
-                $html_contrato_plus .= '<p align="center" style="page-break-before:always; font-size:12px;"><b>CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES PARA EL TRATAMIENTO DE DEPILACIÓN LÁSER 4444444444</p>';
-                // $html_contrato_plus = $this->contratoFacial($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $noMensualidades, $prosa, $fecha_inicial, $allAreas, $quincenaValue, $correoTitular, $domicilioTitular);
+                $html_contrato_plus = $this->contratoFacial($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $noMensualidades, $prosa, $fecha_inicial, $allAreas, $quincenaValue, $correoTitular, $domicilioTitular);
             }
             else if($area == 5){
-                $html_contrato_plus .= '<p align="center" style="page-break-before:always; font-size:12px;"><b>CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES PARA EL TRATAMIENTO DE DEPILACIÓN LÁSER 55555555</p>';
-                // $html_contrato_plus = $this->contratoFacMol($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $mensualidad, $prosa, $fecha_inicial, $allAreas, $quincenaValue, $correoTitular, $domicilioTitular);
+                $html_contrato_plus = $this->contratoFacMol($area, $nombreTitular, $numeroTarjeta, $banco, $saldoPendiente, $mensualidad, $prosa, $fecha_inicial, $allAreas, $quincenaValue, $correoTitular, $domicilioTitular);
             }
         }
 
