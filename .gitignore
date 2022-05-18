@@ -37,6 +37,7 @@ application/third_party/*
 # omitir archivos binarios
 assets/expediente/*
 assets/img/*
+assets/js/url.js
 assets/temporales/*
 img/*
 
