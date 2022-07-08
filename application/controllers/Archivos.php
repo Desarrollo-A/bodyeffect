@@ -331,7 +331,7 @@ class Archivos extends CI_Controller {
         DEPILACIÓN LÁSER QUE CELEBRAN POR UNA PARTE “COSOMI & C.O.”. DE C.V.” CON 
         NOMBRE COMERCIAL “BODY EFFECT”, REPRESENTADO EN ESTE ACTO POR FABIOLA 
         GUERRERO ABREGO; A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ “EL PRESTADOR”, 
-        Y POR LA OTRA PARTE<span style="text-decoration:underline">'.$nombreTitular.'</span>, A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ “EL CLIENTE”; MISMOS QUE EN SU CONJUNTO SE IDENTIFICARÁN COMO “LAS PARTES” DE CONFORMIDAD CON LAS SIGUIENTES:</b><br></p>';
+        Y POR LA OTRA PARTE <span style="text-decoration:underline">'.$nombreTitular.'</span>, A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ “EL CLIENTE”; MISMOS QUE EN SU CONJUNTO SE IDENTIFICARÁN COMO “LAS PARTES” DE CONFORMIDAD CON LAS SIGUIENTES:</b><br></p>';
         $html .= '<p align="center" style="font-size:12px;"><b>D E C L A R A C I O N E S</b></p><br><br><p align="justify" style="font-size:12px;"><b style="text-decoration: underline">I. DECLARA "EL PRESTADOR" QUE: </b><br><ol style="list-style-type: lower-alpha;"><li>Es una empresa legalmente constituida de conformidad en la República Mexicana, lo cual acredita mediante Escritura Pública número 15,837 de fecha 16 de octubre del 2019 otorgada ante la fe del notario público número <b>veintinueve</b>, Licenciado LEOPOLDO 
         MONDRAGÓN GONZÁLEZ, misma que fue debidamente inscrita en el Registro Público 
         de la Propiedad y del Comercio. Se hace constar la constitución de la Sociedad Civil Denominada “COSOMI & CO”.</li><li>Su objeto social le permite celebrar el acto que por el presente instrumento que se materializa.</li><li>Se encuentra inscrito bajo el Régimen General de Ley Personas Morales desde el 16 de 
