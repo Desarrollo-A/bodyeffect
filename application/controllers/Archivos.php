@@ -168,7 +168,9 @@ class Archivos extends CI_Controller {
         $firmader = "EL PRESTADOR";
         $blank = "_______________________________";
         $blank2 = "__________________________________________";
-        $firmader2 = "COSOMI S.A DE C.V. representado en este acto por Fabiola Guerrero Abrego";
+        $formaLegal = "COSOMI S.A DE C.V.";
+        $representado = "Representado en este acto por";
+        $persona = "Fabiola Guerrero Abrego";
         
         setlocale(LC_TIME, "spanish");
         if( $clientes->num_rows() > 0 ){
@@ -303,15 +305,15 @@ class Archivos extends CI_Controller {
 		if($formadepago == 5){
             $pdf->writeHTMLCell(0, 0, $x = '10', $y = '15', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
             $pdf->MultiCell(80, 0, $firmaizq."\n\n\n\n".$blank."\n".$nombreTitular, 0, 'C', 0, 0, '', '', true, 0, false, true, 0);
-            $pdf->MultiCell(80, 0, $firmader."\n\n\n\n".$blank2."\n".$firmader2, 0, 'C', 0, 0, '', '', true, 0, false, true, 0); 
+            $pdf->MultiCell(80, 0, $firmader."\n\n\n\n".$blank2."\n\n".$formaLegal."\n\n".$representado."\n".$persona, 0, 'C', 0, 0, '', '', true, 0, false, true, 0); 
 		} 
         else {
             $pdf->writeHTMLCell(0, 0, $x = '10', $y = '15', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
             $pdf->MultiCell(80, 0, $firmaizq."\n\n\n\n".$blank."\n".$nombreTitular, 0, 'C', 0, 0, '', '', true, 0, false, true, 0);
-            $pdf->MultiCell(80, 0, $firmader."\n\n\n\n".$blank2."\n".$firmader2, 0, 'C', 0, 0, '', '', true, 0, false, true, 0); 
+            $pdf->MultiCell(80, 0, $firmader."\n\n\n\n".$blank2."\n\n".$formaLegal."\n\n".$representado."\n".$persona, 0, 'C', 0, 0, '', '', true, 0, false, true, 0); 
             $pdf->writeHTMLCell(0, 0, $x = '10', $y = '15', $html_contrato_plus, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
             $pdf->MultiCell(80, 0, $firmaizq."\n\n\n\n".$blank."\n".$nombreTitular, 0, 'C', 0, 0, '', '', true, 0, false, true, 0);
-            $pdf->MultiCell(80, 0, $firmader."\n\n\n\n".$blank2."\n".$firmader2, 0, 'C', 0, 0, '', '', true, 0, false, true, 0);
+            $pdf->MultiCell(80, 0, $firmader."\n\n\n\n".$blank2."\n\n".$formaLegal."\n\n".$representado."\n".$persona, 0, 'C', 0, 0, '', '', true, 0, false, true, 0);
 		}
 
 
