@@ -2,8 +2,6 @@
 
 // require __DIR__ . '/autoload.php'; //Nota: si renombraste la carpeta a algo diferente de "ticket" cambia el nombre en esta línea
 
-
-
 spl_autoload_register ( function ($class) {
  
 	$prefix = "Mike42\\";

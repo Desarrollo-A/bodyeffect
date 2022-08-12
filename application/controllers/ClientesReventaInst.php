@@ -149,7 +149,7 @@ class ClientesReventaInst extends CI_Controller
 		$array3 = json_decode($_POST['arrayTratamientos3'], true);
 		$array4 = json_decode($_POST['arrayTratamientos4'], true);
 		$array5 = json_decode($_POST['arrayTratamientos5'], true);
-
+		$user = $this->session->userdata("inicio_sesion")['id'];
 		if ($this->input->post("total")) {
 			$protegida = false;
 			$protegidas = false;
@@ -225,7 +225,10 @@ class ClientesReventaInst extends CI_Controller
 					if ($titular == 1) {
 					    //echo "entra validación titular";
 						//Cambiamos el estatus del antiguo contrato
-						$data = array("estatus" => 0);
+						$data = array(
+							"estatus" => 0,
+							"modificado_por" => $user
+						);
 						$this->db->where("id_contrato", $id_contrato_old);
 						$this->db->update("contratos", $data);
 
@@ -234,7 +237,10 @@ class ClientesReventaInst extends CI_Controller
 							"tipo" => 2,
 							"estatus" => 1,
 							"servicio" => $area,
-							"observaciones" => $observaciones));
+							"observaciones" => $observaciones,
+							"creado_por" => $user,
+							"modificado_por" => $user
+						));
 						$id_contrato = $this->db->insert_id();
 						if (isset($_POST['enfermeras'])) {
 						    //echo "entra validación enfermeras";
@@ -245,7 +251,7 @@ class ClientesReventaInst extends CI_Controller
 
 								if (!empty($data_vc_exist)) {
 									$data_update = array(
-										"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+										"creado_por" => $user,
 										"fecha_creacion" => date("Y-m-d H:i:s"),
 										"id_contrato" => $id_contrato
 									);
@@ -253,7 +259,7 @@ class ClientesReventaInst extends CI_Controller
 								} else {
 									$data_insert = array(
 										"estatus" => 1,
-										"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+										"creado_por" => $user,
 										"fecha_creacion" => date("Y-m-d H:i:s"),
 										"id_contrato" => $id_contrato,
 										"id_usuario" => $_POST['enfermeras'][$n]
@@ -262,12 +268,15 @@ class ClientesReventaInst extends CI_Controller
 								}
 							}
 						}
-						$data2 = array("id_contrato" => $id_contrato);
+						$data2 = array(
+							"id_contrato" => $id_contrato,
+							"modificado_por" => $user
+						);
 						$this->db->where("id_contrato", $id_contrato_old);
 						$this->db->update("clientes_contrato", $data2);
 
 						//Hacemos update del contrato en tarjeta, si ya existía pago recurrente
-						if ($prosaa == 1) $this->ClientesReventaInst_model->update_tarjeta($id_contrato_old, $id_contrato);
+						if ($prosaa == 1) $this->ClientesReventaInst_model->update_tarjeta($id_contrato_old, $id_contrato, $user);
 
 						if ($protegidas) {
 							$tp = $_POST['tarjetaPrimaria'][0];
@@ -291,7 +300,8 @@ class ClientesReventaInst extends CI_Controller
 								"aa" => $anio,
 								"estatus" => 1,
 								"fecha_creacion" => date("Y-m-d H:i:s"),
-								"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+								"creado_por" => $user,
+								"modificado_por" => $user
 								"id_banco" => $banco,
 								"tipo_tarjeta" => $formaPago,
 								"tipo_cobro" => $tipoCobro,
@@ -303,7 +313,7 @@ class ClientesReventaInst extends CI_Controller
 						else $mensualidad = 0;
 						$fecha_hoy = date("Y-m-d H:i:s");
 						$fecha_vencimiento = date("Y-m-d", strtotime($fecha_actual . "+ $parcialidades month"));
-						$this->ClientesReventaInst_model->update_cobros($precioFinal, $porcentaje, $fecha_hoy, $fecha_vencimiento, $parcialidades, $total, 0, $id_cliente, $prosa, $mensualidad, $id_contrato, $id_contrato_old, $lugar_prospeccion, $area);
+						$this->ClientesReventaInst_model->update_cobros($precioFinal, $porcentaje, $fecha_hoy, $fecha_vencimiento, $parcialidades, $total, 0, $id_cliente, $prosa, $mensualidad, $id_contrato, $id_contrato_old, $lugar_prospeccion, $area, $user);
 
 						if (isset($_POST['formaPago'])) {
 							for ($x = 0; $x < count($this->input->post("formaPago")); $x++) {
@@ -330,7 +340,7 @@ class ClientesReventaInst extends CI_Controller
 										if ($vacio == 1) {
 											if (!$protegida && $montoEnganche != 0) {
 												//Insertamos a la tabla cobro y obtenemos último id
-												$id_cobro_new = $this->ClientesReventaInst_model->insert_cobros($id_cliente, $precioFinal, $mesesi, $porcentaje, $fecha_actual, $parcialidades, $formaPago, $pagoCon, $montoEnganche, $total, 0, $area, $referencia, $prosa, $mensualidad, $id_contrato, $lugar_prospeccion, $clave_rastreo);
+												$id_cobro_new = $this->ClientesReventaInst_model->insert_cobros($id_cliente, $precioFinal, $mesesi, $porcentaje, $fecha_actual, $parcialidades, $formaPago, $pagoCon, $montoEnganche, $total, 0, $area, $referencia, $prosa, $mensualidad, $id_contrato, $lugar_prospeccion, $clave_rastreo, $$user);
 											}
 											//Registro de tarjetas
 											$this->db->insert("tarjetas", array(
@@ -341,7 +351,8 @@ class ClientesReventaInst extends CI_Controller
 												"aa" => $anio,
 												"estatus" => 1,
 												"fecha_creacion" => date("Y-m-d H:i:s"),
-												"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+												"creado_por" => $user,
+												"modificado_por" => $user,
 												"id_banco" => $banco,
 												"tipo_tarjeta" => $formaPago,
 												"tipo_cobro" => $tipoCobro,
@@ -361,7 +372,7 @@ class ClientesReventaInst extends CI_Controller
 									$referencia = '';
 
 									//Insertamos a la tabla cobro y obtenemos último id
-									$id_cobro_new = $this->ClientesReventaInst_model->insert_cobros($id_cliente, $precioFinal, $mesesi, $porcentaje, $fecha_actual, $parcialidades, $formaPago, $pagoCon, $montoEnganche, $total, 0, $area, $referencia, $prosa, $mensualidad, $id_contrato, $lugar_prospeccion, $clave_rastreo);
+									$id_cobro_new = $this->ClientesReventaInst_model->insert_cobros($id_cliente, $precioFinal, $mesesi, $porcentaje, $fecha_actual, $parcialidades, $formaPago, $pagoCon, $montoEnganche, $total, 0, $area, $referencia, $prosa, $mensualidad, $id_contrato, $lugar_prospeccion, $clave_rastreo, $user);
 								}
 
 								if ($_POST['formaPago'][$x] == 6) {
@@ -374,13 +385,13 @@ class ClientesReventaInst extends CI_Controller
 									$clave_rastreo = $_POST['clave_rastreo_tb'];
 
 									//Insertamos a la tabla cobro y obtenemos último id
-									$id_cobro = $this->ClientesReventaInst_model->insert_cobros($id_cliente, $precioFinal, $mesesi, $porcentaje, $fecha_actual, $parcialidades, $formaPago, $pagoCon, $montoEnganche, $total, 0, $area, $referencia, $prosa, $mensualidad, $id_contrato, $lugar_prospeccion, $clave_rastreo);
+									$id_cobro = $this->ClientesReventaInst_model->insert_cobros($id_cliente, $precioFinal, $mesesi, $porcentaje, $fecha_actual, $parcialidades, $formaPago, $pagoCon, $montoEnganche, $total, 0, $area, $referencia, $prosa, $mensualidad, $id_contrato, $lugar_prospeccion, $clave_rastreo, $user);
 								}
 							}
 						}
 						$dataExpediente = array("id_contrato" => $id_contrato);
-						$this->ClientesReventaInst_model->update_historial_pagos($id_contrato_old, $id_contrato);
-						$this->ClientesReventaInst_model->update_paquetes($id_contrato_old, $id_contrato);
+						$this->ClientesReventaInst_model->update_historial_pagos($id_contrato_old, $id_contrato, $user);
+						$this->ClientesReventaInst_model->update_paquetes($id_contrato_old, $id_contrato, $user);
 						$this->ClientesReventaInst_model->update_expediente($dataExpediente, $id_contrato_old);
 						$this->ClientesReventaInst_model->delete_payments($id_contrato_old);
 
@@ -401,7 +412,8 @@ class ClientesReventaInst extends CI_Controller
 									"referencia" => '0',
 									"numero_pago" => ($q + 1),
 									"fecha_creacion" => date("Y-m-d H:i: s"),
-									"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+									"creado_por" => $user,
+									"modificado_por" => $user
 									"id_contrato" => $id_contrato));
 							}
 						}
@@ -411,7 +423,13 @@ class ClientesReventaInst extends CI_Controller
 						if ($_POST['corte1'] != "0") {
 							for ($a = 0; $a < $_POST['corte1']; $a++) {
 								$corte1 = $this->input->post("selectPicker")[$a];
-								$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte1, "id_paquete" => $_POST['id_paquete'][$con]));
+								$this->db->insert("clientes_x_areas", array(
+									"id_cliente" => $id_cliente,
+									"id_area" => $corte1,
+									"id_paquete" => $_POST['id_paquete'][$con],
+									"creado_por" => $user,
+									"modificado_por" => $user
+								));
 							}
 						}
 						$this->guardar_tratamientos($array1, $id_cliente, $_POST['id_paquete'][$con]);
@@ -422,7 +440,13 @@ class ClientesReventaInst extends CI_Controller
 							for ($b = 1; $b <= $_POST['corte2']; $b++) {
 								$corte2 = $this->input->post("selectPicker")[$contador2];
 								// echo "<br> Esta es el área c2 | ".$corte2."<br>";
-								$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte2, "id_paquete" => $_POST['id_paquete'][$con]));
+								$this->db->insert("clientes_x_areas", array(
+									"id_cliente" => $id_cliente,
+									"id_area" => $corte2,
+									"id_paquete" => $_POST['id_paquete'][$con],
+									"creado_por" => $user,
+									"modificado_por" => $user
+								));
 								$contador2++;
 							}
 						}
@@ -434,7 +458,13 @@ class ClientesReventaInst extends CI_Controller
 							for ($c = 1; $c <= $_POST['corte3']; $c++) {
 								$corte3 = $this->input->post("selectPicker")[$contador3];
 								// echo "<br> Esta es el área c3 | ".$corte3."<br>";
-								$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte3, "id_paquete" => $_POST['id_paquete'][$con]));
+								$this->db->insert("clientes_x_areas", array(
+									"id_cliente" => $id_cliente,
+									"id_area" => $corte3,
+									"id_paquete" => $_POST['id_paquete'][$con],
+									"creado_por" => $user,
+									"modificado_por" => $user
+								));
 								$contador3++;
 							}
 						}
@@ -446,7 +476,13 @@ class ClientesReventaInst extends CI_Controller
 							for ($d = 1; $d <= $_POST['corte4']; $d++) {
 								$corte4 = $this->input->post("selectPicker")[$contador4];
 								// echo "<br> Esta es el área c4 | ".$corte4."<br>";
-								$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte4, "id_paquete" => $_POST['id_paquete'][$con]));
+								$this->db->insert("clientes_x_areas", array(
+									"id_cliente" => $id_cliente,
+									"id_area" => $corte4,
+									"id_paquete" => $_POST['id_paquete'][$con],
+									"creado_por" => $user,
+									"modificado_por" => $user
+								));
 								$contador4++;
 							}
 						}
@@ -458,7 +494,13 @@ class ClientesReventaInst extends CI_Controller
 							for ($e = 1; $e <= $_POST['corte5']; $e++) {
 								$corte5 = $this->input->post("selectPicker")[$contador5];
 								// echo "<br> Esta es el área c5 | ".$corte5."<br>";
-								$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte5, "id_paquete" => $_POST['id_paquete'][$con]));
+								$this->db->insert("clientes_x_areas", array(
+									"id_cliente" => $id_cliente,
+									"id_area" => $corte5,
+									"id_paquete" => $_POST['id_paquete'][$con],
+									"creado_por" => $user,
+									"modificado_por" => $user
+								));
 								$contador5++;
 							}
 						}
@@ -495,27 +537,19 @@ class ClientesReventaInst extends CI_Controller
 		}
 	}
 
-	public function deactivateRecords($id_contrato)
-	{
-		//$id_contrato = 602;
+	public function deactivateRecords($id_contrato){
 		// MJ: getTableInformationByRecord (SELECT * FROM) LLEVA 3 PARÁMETROS $table, $key, $value
 		$paquetes = $this->ClientesReventaInst_model->getTableInformationByRecord("paquetes", "id_contrato", $id_contrato)->result_array();
 		// MJ: updateRecord (UPDATE) LLEVA 4 PARÁMETROS $table, $data, $key, $value
-		$data = array("estatus" => 0);
+		$data = array(
+			"estatus" => 0,
+			"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+		);
 		$response = array();
-		//$response["contratos"] = $this->ClientesReventaInst_model->updateRecord("contratos", $data, "id_contrato", $id_contrato);
-		//$response["cobros"] = $this->ClientesReventaInst_model->updateRecord("cobros", $data, "id_contrato", $id_contrato);
-		//$response["tarjetas"] = $this->ClientesReventaInst_model->updateRecord("tarjetas", $data, "id_contrato", $id_contrato);
-		//$response["quincenas"] = $this->ClientesReventaInst_model->updateRecord("quincenas", $data, "id_contrato", $id_contrato);
-		//$response["paquetes"] = $this->ClientesReventaInst_model->updateRecord("paquetes", $data, "id_contrato", $id_contrato);
-		//$response["hp"] = $this->ClientesReventaInst_model->updateRecord("historial_pagos", $data, "id_contrato", $id_contrato);
-		//$response["cc"] = $this->ClientesReventaInst_model->updateRecord("clientes_contrato", $data, "id_contrato", $id_contrato);
-		//$response["expedientes"] = $this->ClientesReventaInst_model->updateRecord("expediente", $data, "id_contrato", $id_contrato);
 		for ($i=0; $i < COUNT($paquetes); $i++) { 
 			$response[$i]["cxa"] = $this->ClientesReventaInst_model->updateRecord("clientes_x_areas", $data, "id_paquete", $paquetes[$i]['id_paquete']);
 			$response[$i]["axl"] = $this->ClientesReventaInst_model->updateRecord("areas_x_lipoenzimas", $data, "id_paquete", $paquetes[$i]['id_paquete']);
 		}
-		//echo json_encode($response);
 	}
 	
 	public function guardar_tratamientos($array, $insert_id, $id_paquete){
@@ -529,7 +563,9 @@ class ClientesReventaInst extends CI_Controller
 						"id_area" => $tratamiento['id'],
 						"num_sesion" => 1,
 						"unidades" => 1,
-						"id_paquete" => $id_paquete
+						"id_paquete" => $id_paquete,
+						"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+						"modificado_por" => $this->session->userdata("inicio_sesion")['id']
 					));
 				}
 				else{
@@ -538,7 +574,9 @@ class ClientesReventaInst extends CI_Controller
 						"id_area" => $tratamiento['id'],
 						"num_sesion" => $tratamiento['sesiones'],
 						"unidades" => $tratamiento['piezas'],
-						"id_paquete" => $id_paquete
+						"id_paquete" => $id_paquete,
+						"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+						"modificado_por" => $this->session->userdata("inicio_sesion")['id']
 					));
 				}
 			}

@@ -98,13 +98,6 @@ class Pdf_model extends CI_Model {
         return $this->db->query("SELECT q.id_contrato, FORMAT(q.importe, 'C') importe, CONVERT(varchar, q.fecha_pago, 103) fecha_pago FROM quincenas q 
         INNER JOIN cobros c ON q.id_cobro = c.id_cobro 
         WHERE c.id_contrato = $id_contrato");
-        /*
-        SELECT q.id_contrato, COUNT(*) total_quincenas, STRING_AGG('(' + FORMAT(q.importe, 'C') + ' - ' 
-                        + RIGHT('0' + CONVERT(VARCHAR, DATEPART(D, q.fecha_pago)),2) + '-' 
-                        + RIGHT('0' + CONVERT(VARCHAR, DATEPART(M, q.fecha_pago)),2) + '-' 
-                        + CONVERT(VARCHAR(10), DATEPART(YYYY, q.fecha_pago)), '), ') AS fechas, FORMAT(q.importe, 'C') importe FROM 
-                        quincenas q INNER JOIN cobros c ON q.id_cobro = c.id_cobro WHERE c.id_contrato = ".$id_contrato." GROUP BY q.id_contrato, q.importe
-        */
     }
 
     function get_first_payment($id_cobro){

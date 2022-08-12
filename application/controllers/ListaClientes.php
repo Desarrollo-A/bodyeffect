@@ -382,8 +382,6 @@ class ListaClientes extends CI_Controller
 				"id_contrato" => $id_contrato
 			);
 		}
-		/*print_r($this->ListaClientes_model->new_expediente($data_update));
-		exit;*/
 
 		$update_exec = ($id_expediente != 0 || $id_expediente != '0') ? $this->ListaClientes_model->update_expediente($id_expediente, $data_update) : $this->ListaClientes_model->new_expediente($data_update);
 

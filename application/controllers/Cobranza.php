@@ -128,7 +128,6 @@ class Cobranza extends CI_Controller {
 			}
 		}
 
-		$a = 0;
 		if ($referencias == '') $referencias = '0';
 		for($o=0; $o<count($id_quincena); $o++){				
 			$this->Cobranza_model->update_quincenas_n($id_quincena[$o], $id_folio);	
@@ -149,18 +148,16 @@ class Cobranza extends CI_Controller {
 			'success' => 1
 		);
 
-
 		/*verificar si ya pago todas sus quincenas*/
 		$verify = $this->Cobranza_model->checkIfIsFinished($id_contrato);
 		if($verify->quincenas_restantes == 0)
 		{
 			$data_update = array(
-				'estatus' => 3
+				'estatus' => 3,
+				'modificado_por' => $id_usuario_log
 			);
 			$this->Cobranza_model->updateContrato($id_contrato, $data_update);
 		}
-		/**/
-
 
 		if($array_request != null) {
             echo json_encode($array_request);
@@ -190,7 +187,6 @@ class Cobranza extends CI_Controller {
 		$str_cliente = $this->Cobranza_model->get_cliente($id_cliente);
 		$nombre_cliente = $str_cliente->nombre;
 		
-		// <<<<<<
 		$valida_saldo_abono = $this->Cobranza_model->get_abono_by_quincena($id_contrato);
 		$valida_saldo_plan = $this->Cobranza_model->get_saldo_plan($id_contrato);
 		$last_quincena = $this->Cobranza_model->get_last_quincena($id_contrato);				
@@ -225,13 +221,11 @@ class Cobranza extends CI_Controller {
 		if($monto_tb == '' || $monto_tb == 'undefined') $monto_tb = 0;
 		$total_abonado = $efectivo + $montoT[0] + $montoT[1] + $monto_tb;
 		
-		// >>>>>>>		
 		$total_abonado = sprintf("%.2f", $total_abonado);
 		$saldo = sprintf("%.2f", $saldo);
 
 		if ($total_abonado <= $saldo){
 			$total_abonado = (float) $total_abonado;
-			// >>>>>>>>>>> BEGIN <<<<<<<<<<		
 			$id_folio = $this->Cobranza_model->insert_historial_pago($id_cliente, $id_usuario_log, $id_contrato);		
 			for($k=0; $k<count($formas_pago);$k++){		
 				if($formas_pago[$k]==2){
@@ -242,14 +236,10 @@ class Cobranza extends CI_Controller {
 								$stringMetodos['metodo'][0] = 'Tarjeta crédito';
 								$infoMetodos[0]['metodo'] = 'Tarjeta crédito';
 								$infoMetodos[0]['cantidad'] = $montoTC;
-								/*array_push($infoMetodos, 'metodo' => 'Tarjeta crédito');
-								array_push($infoMetodos, 'cantidad' => $montoT[0]);*/
 							} 
 							else 
 							{
 								$stringMetodos['metodo'][1] = 'Tarjeta débito';
-								/*array_push($infoMetodos, 'metodo' => 'Tarjeta débito');
-								array_push($infoMetodos, 'cantidad' => $montoT[1]);*/
 								$infoMetodos[1]['metodo'] = 'Tarjeta débito';
 								$infoMetodos[1]['cantidad'] = $montoTD;
 							}
@@ -258,7 +248,6 @@ class Cobranza extends CI_Controller {
 							$tipoTarjeta = $creDeb[$m];
 							$importe = $montoT[$m];
 							$this->Cobranza_model->insert_pago_quincenas($id_contrato, $id_usuario_log, $tipoTarjeta, $referencia, $importe, $id_folio);
-							
 						}
 					}
 				}
@@ -267,8 +256,6 @@ class Cobranza extends CI_Controller {
 					$referencia = $clave_rastreo;
 					$this->Cobranza_model->insert_pago_quincenas($id_contrato, $id_usuario_log, 6, $referencia, $monto_tb, $id_folio);
 
-					/*array_push($infoMetodos, 'metodo' => 'Transferencia bancaria');
-					array_push($infoMetodos, 'cantidad' => $monto_tb);*/
 					$infoMetodos[2]['metodo'] = 'Transferencia bancaria';
 					$infoMetodos[2]['cantidad'] = $monto_tb;
 				}
@@ -276,14 +263,11 @@ class Cobranza extends CI_Controller {
 					$stringMetodos['metodo'][3] = 'Efectivo';
 					$this->Cobranza_model->insert_pago_quincenas($id_contrato, $id_usuario_log, 3, $referencia, $efectivo, $id_folio);
 
-					/*array_push($infoMetodos, 'metodo' => 'Efectivo');
-					array_push($infoMetodos, 'cantidad' => $efectivo);*/
 					$infoMetodos[3]['metodo'] = 'Efectivo';
 					$infoMetodos[3]['cantidad'] = $efectivo;
 				}
 			}
 		
-			$a = 0;
 			if ($referencias == '') $referencias = '0';
 			$monto = $this->Cobranza_model->get_clientes_pagar($id_contrato)->result_array();
 			$valida_abono = $this->Cobranza_model->get_abono_by_quincena($id_contrato);
@@ -308,7 +292,7 @@ class Cobranza extends CI_Controller {
 							(($monto[$m]["id_quincena"] == $valida_abono[0]["id_quincena"]) ? ( $monto_tt - $valida_abono[0]["pago"]) : $monto_tt) :
 							$monto_tt;
 						
-						$this->Cobranza_model->update_quincenas($id_quincena_abono);
+						$this->Cobranza_model->update_quincenas($id_quincena_abono, $id_usuario_log);
 						$this->Cobranza_model->insert_abono_quincenas($id_contrato,$id_quincena_abono,$importe,$id_folio,$id_usuario_log);
 						$data_desglose[] = date('Y-m-d h:i:s', strtotime($fecha_pago)) ." $".number_format(round($importe, 2),2)." LIQUIDADO";
 					}
@@ -319,7 +303,7 @@ class Cobranza extends CI_Controller {
 					if (count($quincenas_restantes) > 0 && $restante > 0) {
 						$id_quincena_restante = $quincenas_restantes[0]["id_quincena"];
 						
-						$this->Cobranza_model->update_quincena_restante($id_quincena_restante, $id_folio);
+						$this->Cobranza_model->update_quincena_restante($id_quincena_restante, $id_folio, $id_usuario_log);
 						$this->Cobranza_model->insert_abono_quincenas($id_contrato,$id_quincena_restante,$restante,$id_folio,$id_usuario_log);
 						$fecha_pago_restante = $quincenas_restantes[0]["fecha_pago"];
 						$data_desglose_restante[] = date('Y-m-d h:i:s', strtotime($fecha_pago_restante))." $".number_format(round($restante, 2),2)." "."ABONADO A QUICENA";
@@ -335,7 +319,7 @@ class Cobranza extends CI_Controller {
 					$id_quincena_abono = $monto[0]["id_quincena"];
 					$importe = $total_abonado;
 					$fecha_pago = $monto[0]["fecha_pago"];
-					$this->Cobranza_model->update_quincena_restante($id_quincena_abono, $id_folio);
+					$this->Cobranza_model->update_quincena_restante($id_quincena_abono, $id_folio, $id_usuario_log);
 					$this->Cobranza_model->insert_abono_quincenas($id_contrato,$id_quincena_abono,$importe,$id_folio,$id_usuario_log);
 					$data_desglose[] = date('Y-m-d h:i:s', strtotime($fecha_pago)) ." $".number_format(round($importe, 2),2);
 				}

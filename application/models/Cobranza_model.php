@@ -41,16 +41,16 @@ class Cobranza_model extends CI_Model {
         INNER JOIN contratos con ON co.id_contrato = con.id_contrato");
     }
 
-    function update_quincenas($id_quincena){
-        return $this->db->query("UPDATE quincenas SET estatus = 1, pago_realizado=GETDATE() WHERE id_quincena = ".$id_quincena."");
+    function update_quincenas($id_quincena, $id_usuario_log){
+        return $this->db->query("UPDATE quincenas SET estatus = 1, pago_realizado=GETDATE(), modificado_por = ".$id_usuario_log" WHERE id_quincena = ".$id_quincena."");
     }
 
-    function update_quincenas_n($id_quincena, $historial){
-        return $this->db->query("UPDATE quincenas SET estatus = 1, pago_realizado=GETDATE(), referencia = ".$historial." WHERE id_quincena = ".$id_quincena."");
+    function update_quincenas_n($id_quincena, $historial, $id_usuario_log){
+        return $this->db->query("UPDATE quincenas SET estatus = 1, pago_realizado=GETDATE(), referencia = ".$historial.", modificado_por = ".$id_usuario_log." WHERE id_quincena = ".$id_quincena."");
     }
 
     function insert_pago_quincenas($id_contrato, $id_usuario_log, $tipo, $referencia, $monto, $id_folio){
-        return $this->db->query("INSERT INTO pago_quincenas VALUES(".$id_contrato.", GETDATE(), ".$id_usuario_log.", ".$tipo.", '".$referencia."', ".$monto.", ".$id_folio.");");
+        return $this->db->query("INSERT INTO pago_quincenas VALUES(".$id_contrato.", GETDATE(), ".$id_usuario_log.", ".$tipo.", '".$referencia."', ".$monto.", ".$id_folio.", modificado_por = ".$id_usuario_log.");");
     }
 
     function insert_historial_pago($id_cliente, $id_usuario_log, $id_contrato){        
@@ -60,6 +60,7 @@ class Cobranza_model extends CI_Model {
 			"descripcion" => 'Pago de parcialidad',             
 			"fecha_creacion" => date("Y-m-d H:i:s"),
 			"creado_por" => $id_usuario_log,
+			"modificado_por" => $id_usuario_log,
 			"id_contrato" => $id_contrato));
 		return $this->db->insert_id();
     }
@@ -68,11 +69,11 @@ class Cobranza_model extends CI_Model {
         return $this->db->query("SELECT CONCAT(nombre, ' ', apellido_paterno, ' ', apellido_materno) as nombre FROM clientes WHERE id_cliente = ".$id_cliente."")->row();
     }
 
-    function update_quincena_restante($id_quincena){
-        return $this->db->query("UPDATE quincenas SET estatus = 4, pago_realizado=GETDATE() WHERE id_quincena = ".$id_quincena."");
+    function update_quincena_restante($id_quincena, $id_folio, $id_usuario_log){
+        return $this->db->query("UPDATE quincenas SET estatus = 4, pago_realizado=GETDATE(), modificado_por = ".$id_usuario_log." WHERE id_quincena = ".$id_quincena."");
    }
     function insert_abono_quincenas($id_contrato, $id_quincena, $importe, $referencia, $creado_por){
-        return $this->db->query("INSERT INTO abonos VALUES(".$id_contrato.", ".$id_quincena.", ".$importe.", ".$referencia.", GETDATE(), ".$creado_por.", 1);");
+        return $this->db->query("INSERT INTO abonos VALUES(".$id_contrato.", ".$id_quincena.", ".$importe.", ".$referencia.", GETDATE(), ".$creado_por.", 1, ".$creado_por.");");
     }
 
 
