@@ -32,7 +32,7 @@ class Usuarios extends CI_Controller
 		$password = $this->input->post('password');
 		$telefono = $this->input->post('telefono');
 		$usuario = $this->input->post('usuario');
-		$creado_por = $this->session->userdata("inicio_sesion")['id'];
+		$user = $this->session->userdata("inicio_sesion")['id'];
 		$edad = $this->input->post('edad');
 		$direccion = $this->input->post('direccion');
 		$tipo_usuario = $this->input->post('tipo_usuario');
@@ -52,7 +52,8 @@ class Usuarios extends CI_Controller
 			"sesion_activa" => 1,
 			"imagen_perfil" => "perfil.png",
 			"fecha_creacion" => date('Y-m-d H:i:s'),
-			"creado_por" => $creado_por,
+			"creado_por" => $user,
+			"modificado_por" => $user,
 			"edad" => $edad,
 			"direccion" => $direccion,
 			"aboutme" => "N/A"
@@ -79,7 +80,8 @@ class Usuarios extends CI_Controller
 	public function delete_user($id_usuario)
 	{
 		$data_delete = array(
-			"estatus" => 0
+			"estatus" => 0,
+			"modificado_por" => $this->session->userdata("inicio_sesion")['id']
 		);
 		$data_users = $this->Usuarios_model->update_usuario($id_usuario, $data_delete);
 		if($data_users != null) {
@@ -92,7 +94,8 @@ class Usuarios extends CI_Controller
 	public function renew_user($id_usuario)
 	{
 		$data_renew = array(
-			"estatus" => 1
+			"estatus" => 1,
+			"modificado_por" => $this->session->userdata("inicio_sesion")['id']
 		);
 		$data_users = $this->Usuarios_model->update_usuario($id_usuario, $data_renew);
 		if($data_users != null) {
@@ -167,7 +170,8 @@ class Usuarios extends CI_Controller
 			"telefono" => $telefono,
 			"edad" => $edad,
 			"direccion" => $direccion,
-			"id_rol" => $tipo_usuario
+			"id_rol" => $tipo_usuario,
+			"modificado_por" => $this->session->userdata("inicio_sesion")['id']
 		);
 
 		//print_r($data_actualizar);
@@ -202,7 +206,8 @@ class Usuarios extends CI_Controller
 	public function changeUserStatus(){
         if(isset($_POST) && !empty($_POST)){
             $data = array(
-                "estatus" => $this->input->post("estatus")
+                "estatus" => $this->input->post("estatus"),
+				"modificado_por" => $this->session->userdata("inicio_sesion")['id']
             );
             $response = $this->Usuarios_model->changeUserStatus($data, $this->input->post("id_usuario"));
             echo json_encode($response);

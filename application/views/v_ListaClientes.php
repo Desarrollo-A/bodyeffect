@@ -1125,12 +1125,9 @@ var rol = '<?php echo $this->session->userdata("inicio_sesion")["id_rol"]; ?>';
 									} else { // EDITAR OBBSERVACIÓN
 										commonsBtns += '<button class="dropdown-item observations" title="Editar observaciones" data-type="2" data-id_contrato="' + d.id_contrato + '" data-observacion="' + d.observaciones + '"><i class="fas fa-comment-slash" style="color: #2980B9;"></i> Editar observación</button>';
 									}
-
 									if(d.estatus != 5){
-								commonsBtns += '<button class="dropdown-item cancelar_contrato" title="Editar observaciones" data-type="2"  data-idContrato="' + d.id_contrato + '" data-idCliente="' + d.id_cliente + '"><i class="fas fa-window-close" style="color: #D73939;"></i> Cancelar Contrato</button>';
-							}
-									// EL CLIENTE ESTÁ BLOQUEADO, SÓLO TIENE LA OPCIÓN PARA DESBLOQUEO
-									
+										commonsBtns += '<button class="dropdown-item cancelar_contrato" title="Editar observaciones" data-type="2"  data-idContrato="' + d.id_contrato + '" data-idCliente="' + d.id_cliente + '"><i class="fas fa-window-close" style="color: #D73939;"></i> Cancelar Contrato</button>';
+							}		
 							} else {
 									commonsBtns = '<button class="dropdown-item ver_info_cliente" data-idContrato="' + d.id_contrato + '" title="Ver datos cliente" value="' + d.id_cliente + '"><i class="fa fa-user" style="color: #69DEB1;"></i> Ver cliente</button>';
 									commonsBtns += '<button class="dropdown-item bloquear" title="Bloquear cliente" value="' + d.id_cliente + '"><i class="fa fa-lock" style="color: #D73939;"></i> Bloquear</button>';

@@ -32,10 +32,10 @@ class Agenda_model extends CI_Model {
 	function cancelar_cita($agenda, $cliente, $user){
 		//estatus 3 es cancelada
 		$this->db->query("INSERT INTO [logs] VALUES(".$cliente.", ".$user.", 'CANCELÓ CITA ".$agenda."', GETDATE(), 1)");
-		$this->db->query("UPDATE clientes_x_areas SET estatus = 0 WHERE id_area IN (SELECT id_area FROM areas_x_cita WHERE d_agenda = ".$agenda.") AND id_cliente = ".$cliente."");
+		$this->db->query("UPDATE clientes_x_areas SET estatus = 0, modificado_por = ".$user." WHERE id_area IN (SELECT id_area FROM areas_x_cita WHERE d_agenda = ".$agenda.") AND id_cliente = ".$cliente."");
 		return $this->db->query("UPDATE [agenda] SET estatus = 3, hora_inicio = null, hora_fin = null WHERE id_agenda = ".$agenda."");
 	}
-
+|
 	function datos_agenda($data){    
 		$this->db->query("SET LANGUAGE Spanish");
 		return $this->db->query("SELECT a.id_agenda, c.id_cliente,a.estatus, convert(char(5), a.hora_inicio, 108) as hora_letra, STRING_AGG((CASE ar.tipo WHEN 1 THEN CONCAT(ar.nombre, ' (depilación)') WHEN 2 THEN CONCAT(ar.nombre, ' (moldeo)') END), ', ') AS valor, a.fecha_cita , CONCAT(c.nombre,' ',c.apellido_paterno,' ',c.apellido_materno) AS nombrecompleto, c.correo, c.telefono

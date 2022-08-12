@@ -98,6 +98,7 @@ class ClientesReventa extends CI_Controller
 							"forma_pago" => $metodoPago, 
 							"fecha_creacion" => date("Y-m-d H:i:s"),
 							"creado_por" => $this->session->userdata("inicio_sesion")['id'], 
+							"modificado_por" => $this->session->userdata("inicio_sesion")['id'],
 							"mensualidad" => ($precioFinal-$pagoCon)/$parcialidades, 
 							"enganche" => $pagoCon,
 							"total" => $total));
@@ -107,7 +108,9 @@ class ClientesReventa extends CI_Controller
 							"id_cliente" => $id_cliente, 
 							"id_cobro" => $id_cobro, 
 							"fecha_creacion" => date("Y-m-d H:i:s"), 
-							"creado_por" => $this->session->userdata("inicio_sesion")['id']));
+							"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+							"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+						));
 						$id_paquete = $this->db->insert_id();
 	
 					$this->db->insert("historial_pagos", array(
@@ -115,7 +118,9 @@ class ClientesReventa extends CI_Controller
 						"tipo_pago" => 3, 
 						"descripcion" => 'Pago por reventa', 
 						"fecha_creacion" => date("Y-m-d H:i:s"), 
-						"creado_por" => $this->session->userdata("inicio_sesion")['id']));
+						"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+						"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+					));
 
 				}
 	
@@ -135,7 +140,13 @@ class ClientesReventa extends CI_Controller
 						for( $a = 0; $a < $_POST['corte1']; $a++ ){
 							$corte1 = $this->input->post("selectPicker")[$a];
 							// echo "<br> Esta es el área c1 | ".$corte1."<br>";
-							$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte1, "id_paquete" => $id_paquete));
+							$this->db->insert("clientes_x_areas", array(
+								"id_cliente" => $id_cliente,
+								"id_area" => $corte1,
+								"id_paquete" => $id_paquete,
+								"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+								"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+							));
 						}
 					}
 				}
@@ -145,7 +156,13 @@ class ClientesReventa extends CI_Controller
 						for( $b = 1; $b <= $_POST['corte2']; $b++ ){
 							$corte2 = $this->input->post("selectPicker")[$contador2];
 							// echo "<br> Esta es el área c2 | ".$corte2."<br>";
-							$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte2, "id_paquete" => $id_paquete));
+							$this->db->insert("clientes_x_areas", array(
+								"id_cliente" => $id_cliente,
+								"id_area" => $corte2,
+								"id_paquete" => $id_paquete,
+								"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+								"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+							));
 							$contador2 ++;	
 						}
 					}
@@ -156,7 +173,13 @@ class ClientesReventa extends CI_Controller
 						for( $c = 1; $c <= $_POST['corte3']; $c++ ){
 							$corte3 = $this->input->post("selectPicker")[$contador3];
 							// echo "<br> Esta es el área c3 | ".$corte3."<br>";
-							$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte3, "id_paquete" => $id_paquete));
+							$this->db->insert("clientes_x_areas", array(
+								"id_cliente" => $id_cliente,
+								"id_area" => $corte3,
+								"id_paquete" => $id_paquete,
+								"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+								"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+							));
 							$contador3 ++;
 						}
 					}
@@ -167,7 +190,13 @@ class ClientesReventa extends CI_Controller
 						for( $d = 1; $d <= $_POST['corte4']; $d++ ){
 							$corte4 = $this->input->post("selectPicker")[$contador4];
 							// echo "<br> Esta es el área c4 | ".$corte4."<br>";
-							$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte4, "id_paquete" => $id_paquete));
+							$this->db->insert("clientes_x_areas", array(
+								"id_cliente" => $id_cliente,
+								"id_area" => $corte4,
+								"id_paquete" => $id_paquete,
+								"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+								"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+							));
 							$contador4 ++;
 	
 						}
@@ -179,7 +208,13 @@ class ClientesReventa extends CI_Controller
 						for( $e = 1; $e <= $_POST['corte5']; $e++ ){
 							$corte5 = $this->input->post("selectPicker")[$contador5];
 							// echo "<br> Esta es el área c5 | ".$corte5."<br>";
-							$this->db->insert("clientes_x_areas", array("id_cliente" => $id_cliente, "id_area" => $corte5, "id_paquete" => $id_paquete));
+							$this->db->insert("clientes_x_areas", array(
+								"id_cliente" => $id_cliente,
+								"id_area" => $corte5,
+								"id_paquete" => $id_paquete,
+								"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+								"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+							));
 							$contador5 ++;
 						}
 					}
@@ -197,7 +232,12 @@ class ClientesReventa extends CI_Controller
 					$id_titular = $key->id;
 				break;
 				case 0:
-					$this->db->insert("clientes_contrato", array("id_contrato" => $id_contrato, "id_cliente" => $key->id));
+					$this->db->insert("clientes_contrato", array(
+						"id_contrato" => $id_contrato,
+						"id_cliente" => $key->id,
+						"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+						"modificado_por" => $this->session->userdata("inicio_sesion")['id']
+					));
 				break;
 			}
 		}
