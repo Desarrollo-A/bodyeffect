@@ -7,6 +7,7 @@ class Expedientes extends CI_Controller
 		parent::__construct();
         $this->load->model(array('Expedientes_model'));
 		$this->validateSession();
+        date_default_timezone_set("America/Mexico_City");
 	}
 
 	public function index(){
