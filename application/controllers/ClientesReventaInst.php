@@ -9,6 +9,7 @@ class ClientesReventaInst extends CI_Controller
 		$this->load->model(array('ClientesReventaInst_model'));
 		$this->load->model(array('Clientes_model'));
 		$this->validar_sesion();
+        date_default_timezone_set("America/Mexico_City");
 	}
 
 	public function validar_sesion()

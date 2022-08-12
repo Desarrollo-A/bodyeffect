@@ -9,6 +9,7 @@ class Cobranza extends CI_Controller {
       parent::__construct();
       $this->load->model(array('Cobranza_model'));		
       $this->validateSession();
+        date_default_timezone_set("America/Mexico_City");
     }
 
     public function index(){

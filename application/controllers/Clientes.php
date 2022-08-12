@@ -13,7 +13,8 @@ class Clientes extends CI_Controller
 	public function __construct(){
         parent::__construct();
 			$this->load->model(array('Clientes_model'));
-			//$this->validateSession();			
+			//$this->validateSession();
+            date_default_timezone_set("America/Mexico_City");
 	}
 	
 	public function index(){
