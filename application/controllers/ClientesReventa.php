@@ -6,6 +6,8 @@ class ClientesReventa extends CI_Controller
 	public function __construct(){
         parent::__construct();
             $this->load->model(array('ClientesReventa_model'));
+			$this->load->library(array('Jwt_actions'));
+    		$this->jwt_actions->authorize('274', $_SERVER['HTTP_HOST']);
             $this->validateSession();
             date_default_timezone_set("America/Mexico_City");
     }

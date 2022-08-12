@@ -15,6 +15,8 @@ class Clientes extends CI_Controller
 			$this->load->model(array('Clientes_model'));
 			//$this->validateSession();
             date_default_timezone_set("America/Mexico_City");
+			$this->load->library(array('Jwt_actions'));
+    		$this->jwt_actions->authorize('649', $_SERVER['HTTP_HOST']);
 	}
 	
 	public function index(){

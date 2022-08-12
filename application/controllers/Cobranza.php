@@ -7,9 +7,10 @@ use Mike42\Escpos\Printer;
 class Cobranza extends CI_Controller {
     public function __construct(){
       parent::__construct();
-      $this->load->model(array('Cobranza_model'));		
-      $this->validateSession();
-        date_default_timezone_set("America/Mexico_City");
+		$this->load->model(array('Cobranza_model'));		
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('59', $_SERVER['HTTP_HOST']);
+      	$this->validateSession();
     }
 
     public function index(){

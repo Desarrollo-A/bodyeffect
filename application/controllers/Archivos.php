@@ -8,6 +8,8 @@ class Archivos extends CI_Controller {
 
         $this->load->model("Pdf_model");
 		$this->load->library(array('general'));
+        $this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('514', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
     }
 

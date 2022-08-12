@@ -8,6 +8,8 @@ class ListaClientes extends CI_Controller
 		parent::__construct();
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Headers: Content-Type');
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('667', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
 		$this->load->model("ListaClientes_model");
 	}

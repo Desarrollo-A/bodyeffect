@@ -7,6 +7,8 @@ class Ajustes extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('phpmailer_lib');
+        $this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('545', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
     }
 
