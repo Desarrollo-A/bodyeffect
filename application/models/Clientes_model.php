@@ -154,8 +154,7 @@ class Clientes_model extends CI_Model {
   //SE COMENTÓ EL QUI.PAGO DEL GROUP BY PORQUE COMO ES DIFERENTE LO ESTABA SEPARANDO Y NO AGRUPABA TODOS LOS PARÁMETROS
   public function get_clientes_activos_222($begin_date, $end_date){ // SÓLO ABONOS A QUINCENAS (LOS QUE ESTÁN EN PROCESO)
     return $this->db->query("SELECT '3' as tipoTrans ,STRING_AGG(hp.id_hpagos, ', ') id_hpagos, STRING_AGG(qui.numero_pago, ', ') WITHIN GROUP 
-    (ORDER BY qui.numero_pago) numero_pago, 
-    --(CASE WHEN COUNT(DISTINCT(pq.historial)) > 1 THEN SUM(ab.pago) ELSE (CASE WHEN COUNT(DISTINCT(pq.metodo)) > 1 THEN SUM(ab.pago) ELSE SUM(DISTINCT(ab.pago))END) END) as abonado, 
+    (ORDER BY qui.numero_pago) numero_pago,
     (CASE WHEN COUNT(DISTINCT(pq.historial)) > 1 THEN SUM(ab.pago) ELSE (CASE WHEN COUNT(DISTINCT(pq.metodo)) > 1 THEN ab.pago ELSE SUM(ab.pago)END) END) abonado,
     CONCAT(cl.nombre,' ', cl.apellido_paterno, ' ', cl.apellido_materno) as cliente,'Abono a parcialidad' as concepto, 
     CONVERT(char(10), pq.fecha_creado, 111)  as fecha_cobro, co.id_cliente,
@@ -164,7 +163,6 @@ class Clientes_model extends CI_Model {
     nombre_vc as v_compartida, co.cantidad totalEnganche,
     CONCAT(us.nombre, ' ', us.apellido_paterno, ' ', us.apellido_materno, ' ( ', oc.nombre, ' )') as vendedor,
     con.tipo, con.estatus as estatus_contrado, 
-    --(CASE WHEN COUNT(DISTINCT(pq.historial)) > 1 THEN SUM(ab.pago) ELSE (CASE WHEN COUNT(DISTINCT(pq.metodo)) > 1 THEN SUM(ab.pago) ELSE SUM(DISTINCT(ab.pago))END) END) enganche, 
     (CASE WHEN COUNT(DISTINCT(pq.historial)) > 1 THEN SUM(ab.pago) ELSE (CASE WHEN COUNT(DISTINCT(pq.metodo)) > 1 THEN ab.pago ELSE SUM(ab.pago)END) END) enganche, 
     STRING_AGG(oc2.nombre,',') forma_pago
     FROM contratos con

@@ -6,8 +6,9 @@ class Agenda extends CI_Controller {
 		parent::__construct();
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Headers: Content-Type');
-
 		$this->load->model('Agenda_model');
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('636', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
 	}
 
@@ -16,9 +17,9 @@ class Agenda extends CI_Controller {
 	}
 
 	public function obtener_datos(){
-		$this->load->model('Agenda_model');		
+		$this->load->model('Agenda_model');
 		$array = array();
-		$arrayp = array();		
+		$arrayp = array();
 		$arrayp['clientes'] = $this->Agenda_model->obtener_datos()->result();
 		
 		for($x = 0;$x<count($arrayp['clientes']);$x++){	
@@ -29,8 +30,7 @@ class Agenda extends CI_Controller {
 						 "color" => $arrayp['clientes'][$x]->color);
 			$array[] = $lit;
 		}
-		echo json_encode($array);		
-		// print_r(json_encode($this->Agenda_model->obtener_datos()->result_array()));
+		echo json_encode($array);
 	}
 
 	public function datos_agenda(){
@@ -46,7 +46,6 @@ class Agenda extends CI_Controller {
 		$this->load->model('Agenda_model');
 		echo json_encode($this->Agenda_model->get_ruta_contrato($id)->result_array());
 	}
-
 
 	public function lista_proveedores_libres(){
 		$data["provedores_total"] = $this->Agenda_model->get_proveedores_lista()->num_rows();
@@ -71,8 +70,6 @@ class Agenda extends CI_Controller {
 		$this->load->model('Agenda_model');
 		$respuesta_fech = $this->db->query("SELECT * FROM [agenda] WHERE id_cliente = ".$cliente);
 
-		/*print_r($respuesta_fech->result());
-		exit;*/
 		if($respuesta_fech->num_rows()>0){
 			$respuesta = $this->Agenda_model->get_clientes_fechas($dia, $cliente)->result_array();
 		}
@@ -116,9 +113,8 @@ class Agenda extends CI_Controller {
 		}
 
 		$format = 'Y-m-d H:i:s';
-		$date_hour = DateTime::createFromFormat($format, $date);
-		//print_r($date_hour);
-		$hora = $date_hour->format('H:i:s');/* $this->input->post("colorin")*/
+		$date_hour = DateTime::createFromFormat($format, $date);		
+		$hora = $date_hour->format('H:i:s');
 		echo json_encode($this->Agenda_model->verificar_fecha($date3, $stamp, $service, $hora)->result_array());
 	}
 
@@ -147,8 +143,7 @@ class Agenda extends CI_Controller {
 
 		$format = 'Y-m-d H:i:s';
 		$date_hour = DateTime::createFromFormat($format, $date);
-		//print_r($date_hour);
-		$hora = $date_hour->format('H:i:s');/* $this->input->post("colorin")*/
+		$hora = $date_hour->format('H:i:s');
 		echo json_encode($this->Agenda_model->citas_del_dia($date3, $stamp, $service, $hora)->result_array());
 	}
 
@@ -168,19 +163,15 @@ class Agenda extends CI_Controller {
 
 	public function agregar_datos_cita(){
 		$this->load->model('Agenda_model');
-		// $respuesta = array( FALSE );
 
-		// if($this->input->post("colorin")){
 			$depilacion = array();
 			$moldeo= array();
 			$service=0;
 			$date1=date("Y-m-d H:i:s",strtotime($this->input->post("fech_eleccion")));
 			$format = 'Y-m-d H:i:s';
 			$date_hour = DateTime::createFromFormat($format, $date1);
-			//print_r($date_hour);
-			$hora = $date_hour->format('H:i:s');/* $this->input->post("colorin")*/
+			$hora = $date_hour->format('H:i:s');
 			$cliente = $this->input->post("id_cliente");
-			//$this->input->post("fech_eleccion")
 			$fecha = date("Y-m-d",strtotime($this->input->post("fech_eleccion")));
 			$areas = $this->input->post("ar_value");
 			$duracion = $this->input->post("duracion");
@@ -199,11 +190,11 @@ class Agenda extends CI_Controller {
 			}
 			$verificar = $this->db->query("SELECT * FROM [agenda] WHERE id_cliente = ".$cliente."");
 			if ($verificar->num_rows()>0){
-				$this->db->query("UPDATE [clientes_x_areas] SET estatus = 1 WHERE estatus != 2 AND id_cliente = ".$cliente." AND id_area in (".$areas.")");
+				$this->db->query("UPDATE [clientes_x_areas] SET estatus = 1, modificado_por = $user WHERE estatus != 2 AND id_cliente = ".$cliente." AND id_area in (".$areas.")");
 				$this->db->query("INSERT INTO [agenda] (id_cliente, fecha_cita, id_sucursal, estatus, fecha_creacion, creado_por, id_cabina, hora_inicio, hora_fin, lista_areas, servicio) VALUES(".$cliente.", '".$fecha."',1,1,GETDATE(),'".$user."',1,'".$hora."',DATEADD(minute,".$duracion.",'".$hora."'),'".$areas."','".$service."')");
 			}
 			else{
-				$this->db->query("UPDATE [clientes_x_areas] SET estatus = 1 WHERE estatus != 2 AND id_cliente = ".$cliente." AND id_area in (".$areas.")");
+				$this->db->query("UPDATE [clientes_x_areas] SET estatus = 1, modificado_por = $user WHERE estatus != 2 AND id_cliente = ".$cliente." AND id_area in (".$areas.")");
 				$this->db->query("INSERT INTO [agenda] (id_cliente, fecha_cita, id_sucursal, estatus, fecha_creacion, creado_por, id_cabina, hora_inicio, hora_fin, lista_areas, servicio) VALUES(".$cliente.", '".$fecha."',1,1,GETDATE(),'".$user."',1,'".$hora."',DATEADD(minute,".$duracion.",'".$hora."'),'".$areas."','".$service."')");
 			}
 
@@ -336,9 +327,7 @@ class Agenda extends CI_Controller {
 		$date1=date("Y-m-d H:i:s",strtotime($this->input->post("fech_eleccion")));
 		$format = 'Y-m-d H:i:s';
 		$date_hour = DateTime::createFromFormat($format, $date1);
-		//print_r($date_hour);
-		$hora = $date_hour->format('H:i:s');/* $this->input->post("colorin")*/
-		//$this->input->post("fech_eleccion")
+		$hora = $date_hour->format('H:i:s');
 		$fecha = date("Y-m-d",strtotime($this->input->post("fech_eleccion")));
 		$duracion = $this->input->post("duracion");
 		$user = $this->session->userdata("inicio_sesion")['id'];
@@ -356,9 +345,7 @@ class Agenda extends CI_Controller {
 		if(count($moldeo)>0){
 			$service = $service+2;
 		}
-		// $this->db->query("UPDATE clientes_x_areas SET estatus = 1 WHERE estatus != 2 AND id_cliente = ".$cliente." AND id_area in (".$areas.")");
 		$respuesta = $this->Agenda_model->update_cita($fecha, $user,$hora, $duracion, $areasArray, $service, $idAgenda);
-		// }
 		echo json_encode( $respuesta );
 	}
 

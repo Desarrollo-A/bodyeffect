@@ -11,7 +11,4 @@ function __construct(){
 public function index(){ 
       $this->load->view('welcome_message');
  }
-
-
-  
 }

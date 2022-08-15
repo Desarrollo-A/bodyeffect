@@ -6,6 +6,8 @@ class Expedientes extends CI_Controller
 	public function __construct(){
 		parent::__construct();
         $this->load->model(array('Expedientes_model'));
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('223', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
         date_default_timezone_set("America/Mexico_City");
 	}
@@ -109,7 +111,6 @@ class Expedientes extends CI_Controller
 						
 						$this->db->query("INSERT INTO expediente_clinico (fecha_sesion, id_area, potencia, frecuencia, bello_restante, id_enfermera, observaciones, fecha_creacion, creado_por, id_cliente, duracion) VALUES('".$fecha_cita."', '".$arrayArea[$x]."', '".$arrayPotencia[0]."', '".$arrayFrecuencia[0]."', '".$arrayBello[0]."', '".$responsable."', '".$observacion_exp[0]."', GETDATE(), '".$user."', '".$identifcliente."', ".$dur_area[0].")");
 
-						//$this->db->query("UPDATE clientes_x_areas SET estatus=0 WHERE id_cliente=".$identifcliente." AND id_area=".$arrayArea[$x]." AND estatus = 1;");
 						$countDep++;
 					  }
 					  else{
@@ -122,13 +123,12 @@ class Expedientes extends CI_Controller
 						
 						$this->db->query("INSERT INTO expediente_clinico (fecha_sesion, id_area, potencia, frecuencia, bello_restante, tempIni, rfIni, rfFin, tempFin,id_enfermera, observaciones, fecha_creacion, creado_por, id_cliente, duracion) VALUES('".$fecha_cita."', '".$arrayArea[$x]."',0,0,0, '".$arrayTempIni[0]."', '".$rfIni[0]."', '".$rfFin[0]."', '".$arrayTempFin[0]."', '".$responsable."', '".$observacion_exp[0]."', GETDATE(), '".$user."', '".$identifcliente."', ".$dur_area[0].")");
 
-						//$this->db->query("UPDATE clientes_x_areas SET estatus=0 WHERE id_cliente=".$identifcliente." AND id_area=".$arrayArea[$x]." AND estatus = 1;");
-					  $countMold++;
+					  	$countMold++;
 					  }
 					}
 			  if($this->input->post("fotoTipo")){
 				$fotoTipo = $this->input->post("fotoTipo");
-				$this->db->query("UPDATE clientes SET fotoTipo = '$fotoTipo' WHERE id_cliente = '$identifcliente';");
+				$this->db->query("UPDATE clientes SET fotoTipo = '$fotoTipo', modificado_por = '$user' WHERE id_cliente = '$identifcliente';");
 			  }
 
   			$respuesta = array( TRUE );

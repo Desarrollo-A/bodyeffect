@@ -8,7 +8,8 @@ class Areas extends CI_Controller
 		parent::__construct();
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Headers: Content-Type');
-
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('907', $_SERVER['HTTP_HOST']);
 		$this->load->model('Areas_model');
 	}
 
@@ -17,10 +18,8 @@ class Areas extends CI_Controller
 		$this->load->view('areas_admin');
 	}
 
-	function getAreasByTipo($tipo)
-	{
+	function getAreasByTipo($tipo){
 		$data = $this->Areas_model->getAreasByTipo($tipo);
-
 
 		if($data != null) {
 			echo json_encode($data);
@@ -164,11 +163,8 @@ class Areas extends CI_Controller
 			"Partes" => $parte,
 			"completo" => $valFinal
 		);
-		/*print_r($data_insert);
-		exit;*/
 		$request_insert = $this->Areas_model->insertArea($data_insert);
-		if($request_insert >= 1 && $valFinal==1)
-		{
+		if($request_insert >= 1 && $valFinal==1){
 			$last_insert_id = $this->db->insert_id();
 			$data_update = array(
 				"Partes" => $last_insert_id

@@ -8,6 +8,8 @@ class ListaClientes extends CI_Controller
 		parent::__construct();
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Headers: Content-Type');
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('667', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
 		$this->load->model("ListaClientes_model");
 	}
@@ -380,8 +382,6 @@ class ListaClientes extends CI_Controller
 				"id_contrato" => $id_contrato
 			);
 		}
-		/*print_r($this->ListaClientes_model->new_expediente($data_update));
-		exit;*/
 
 		$update_exec = ($id_expediente != 0 || $id_expediente != '0') ? $this->ListaClientes_model->update_expediente($id_expediente, $data_update) : $this->ListaClientes_model->new_expediente($data_update);
 

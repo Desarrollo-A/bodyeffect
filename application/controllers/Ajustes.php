@@ -7,6 +7,8 @@ class Ajustes extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('phpmailer_lib');
+        $this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('545', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
     }
 
@@ -20,22 +22,21 @@ class Ajustes extends CI_Controller {
 
 
      public function actualizar_perfil(){
-     	 $this->load->model("Ajustes_model");
+     	$this->load->model("Ajustes_model");
      	$respuesta = array( FALSE );
      	$id_user = $this->session->userdata("inicio_sesion")['id'];
 
-     	// if($this->input->post("idautopago")){
-     		$data = array(
-     			"nombre" => $this->input->post("nombre"),
-     			"apellido_paterno" => $this->input->post("apellido_paterno"),
-     			"apellido_materno" => $this->input->post("apellido_materno"),
-     			"direccion" => $this->input->post("direccion"),
-     			"aboutme" => $this->input->post("aboutme")
-     		);
-     		$respuesta = array( $this->Ajustes_model->update_perfil($id_user, $data));
-     	// }
+        $data = array(
+            "nombre" => $this->input->post("nombre"),
+            "apellido_paterno" => $this->input->post("apellido_paterno"),
+            "apellido_materno" => $this->input->post("apellido_materno"),
+            "direccion" => $this->input->post("direccion"),
+            "aboutme" => $this->input->post("aboutme"),
+     	    "modificado_por" => $id_user
+        );
+        
+        $respuesta = array( $this->Ajustes_model->update_perfil($id_user, $data));
      	echo json_encode( $respuesta );
-     	// echo "actualizar_perfil";
      }
 
      public function test()
@@ -116,9 +117,9 @@ class Ajustes extends CI_Controller {
         $name = $this->session->userdata("inicio_sesion")['nombre'];
         $data = array(
             "idcrea" => $this->session->userdata("inicio_sesion")['id'],
-             "nombre" => $name,
-              "sistema" => "BODY EFFECT"   
-     );
+            "nombre" => $name,
+            "sistema" => "BODY EFFECT"   
+        );
 
         $ch = curl_init($url);
         # Setup request to send json via POST.
@@ -130,8 +131,7 @@ class Ajustes extends CI_Controller {
         # Send request.
         $result = curl_exec($ch);
         curl_close($ch);
-         //$row = array('html' =>$result);
-            echo json_encode($result);   
+        echo json_encode($result);
     }
     /**--------------------------FIN----------------------- */
 

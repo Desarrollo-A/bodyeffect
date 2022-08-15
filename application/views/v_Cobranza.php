@@ -714,7 +714,6 @@ require "menu.php";
     for( var i = 0; i<data.length; i++){
       total_hoy += parseFloat(data[i]['suma_hoy_cobros']);
     }
-        // console.log(data.total_vendido_hoy);
         $('#venta_diaria').append(addCommas(total_hoy)+" MXN");
     },'json');
 
@@ -830,10 +829,7 @@ require "menu.php";
       jQuery('#formaPago_2').multiselect('clearSelection'); // to reset the multi select users dropdown
 
       jQuery('#formaPago_2').multiselect('refresh'); // to reset the multi select users dropdown
-    // $('#formaPago_2').multiselect('refresh');
-        // $('#form_apply_payment_abono :input').val('');
       if (estatus_contrato == 3){      
-        console.log("terminado");
         $.getJSON(url2 + "Cobranza/pago_una_exhibicion/"+id_contrato).done(function( data ){          
           $.each(data, function(i, v){            
             engancheT += parseFloat(v.enganche);              
@@ -900,6 +896,7 @@ require "menu.php";
           $('#loader').addClass('hidden');
         });
 
+        console.log("data"dataM);
         //Función para llenar el encabezado de resumen 
         if (dataM != ''){          
           $.each(dataM, function(i, v){
@@ -908,11 +905,7 @@ require "menu.php";
             pagosT++;
           });
           dataM[0].abono_pagado == null ? abono_TQuincenas = 0 : abono_TQuincenas = dataM[0].abono_pagado;          
-          console.log("total enganche: "+parseFloat(dataM[0].total_enganche));
-          console.log("total de quincenas: "+ parseFloat(importePagado));
-          console.log("total de abonos: "+abono_TQuincenas);
           abonoT = parseFloat(importePagado) + parseFloat(abono_TQuincenas);
-          console.log("Abono total de: "+abonoT);
           pendiente = dataM[0].cantidad - abonoT - parseFloat(dataM[0].total_enganche);
           $("#a_pagar").append('<p style="text-align:center; margin:0; font-size:14px"><b>$ '+formatMoney(dataM[0].cantidad)+'</b></p>');
           $("#enganche").append('<p style="text-align:center; margin:0; font-size:14px"><b>$ '+formatMoney(dataM[0].total_enganche)+'</b></p>');
@@ -1383,26 +1376,13 @@ require "menu.php";
     var suma = (efectivo + montoTU + montoTD + monto_tb);
     var totalPagar = parseFloat($('#valor_acumulado').val());
 
-    if(suma == totalPagar)
-  {
-    console.log('Si es la misma cantidad');
-    $('#btnsubmit').attr('disabled', false);
-  }
+    if(suma == totalPagar){
+      $('#btnsubmit').attr('disabled', false);
+    }
     else {
-      console.log('No es la misma cantidad');
-    $('#btnsubmit').attr('disabled', true);
-  }
+      $('#btnsubmit').attr('disabled', true);
+    }
 
-    console.log("Suma: " + suma);
-    console.log("Total a pagar: " + totalPagar);
-
-
-    /*if(parseFloat(e) + parseFloat($('#montoTU').val()) + parseFloat($('#montoTD').val()) > parseFloat($('#valor_acumulado').val())){
-      $(".pago-menor-div").remove();
-      $(".pago-menor").append('<div class="pago-menor-div"><div><center><img src="<?= base_url("assets/img/falla_general.png")?>" style="width:130px; height: 120px"></center></div><center><label><b>El monto ingresado es mayor al anticipo</b></label></center> <center><button type="button" class="btn btn-body" data-dismiss="modal">Aceptar</button></center></div>');
-      jQuery("#modalPagoMenor").modal("show");
-      $("#efectivo").val('');
-    }*/
     $("#entrada").val(suma);
   }
   function evalueEntranceTB(e){
@@ -1525,8 +1505,6 @@ require "menu.php";
   }
 
   function evaluateSaldo(){  
-    console.log("Total ingresado: $" +$('#valor_acumulado_2').val());      
-    console.log("Saldo total restante: $"+$("#saldo_i").val());
     if(parseInt($('#valor_acumulado_2').val()) > parseInt($("#saldo_i").val())){
       validate_saldo();
       $('#valor_acumulado_2').val('');
@@ -1780,10 +1758,7 @@ require "menu.php";
 
     elementoG += '<div style="text-align:center !important">';
       elementoG += '<label>DESGLOSE DEL PAGO:</label><br>';
-        for(var i=0; i<data['metodos_usados'].length; i++)
-        {
-            /*console.log("<b>Metodo</b>: " + data['metodos_usados'][i]['metodo']);
-            console.log("<b>Cantidad</b>: " + data['metodos_usados'][i]['cantidad']);*/
+        for(var i=0; i<data['metodos_usados'].length; i++){
             elementoG += "<b> " + (data['metodos_usados'][i]['metodo']).toUpperCase() +": </b>";
             elementoG += "$ "+formatMoney(data['metodos_usados'][i]['cantidad'])+"<br>";
         }
