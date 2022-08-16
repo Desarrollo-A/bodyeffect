@@ -42,7 +42,7 @@ class Cobranza_model extends CI_Model {
     }
 
     function update_quincenas($id_quincena, $id_usuario_log){
-        return $this->db->query("UPDATE quincenas SET estatus = 1, pago_realizado=GETDATE(), modificado_por = ".$id_usuario_log" WHERE id_quincena = ".$id_quincena."");
+        return $this->db->query("UPDATE quincenas SET estatus = 1, pago_realizado=GETDATE(), modificado_por = ".$id_usuario_log." WHERE id_quincena = ".$id_quincena."");
     }
 
     function update_quincenas_n($id_quincena, $historial, $id_usuario_log){
