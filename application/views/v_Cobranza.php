@@ -896,7 +896,6 @@ require "menu.php";
           $('#loader').addClass('hidden');
         });
 
-        console.log("data"dataM);
         //Función para llenar el encabezado de resumen 
         if (dataM != ''){          
           $.each(dataM, function(i, v){
