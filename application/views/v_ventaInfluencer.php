@@ -1409,7 +1409,6 @@ require("menu.php");
 <script>
 	var url = "<?=base_url()?>";
 	var url2 = "<?=base_url()?>index.php/";
-	var urlimg = "<?=base_url()?>img/";
 </script>
 <script>
 	function scanIne(){

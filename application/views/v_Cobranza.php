@@ -706,7 +706,6 @@ require "menu.php";
 <script>
   var url = "<?=base_url()?>";
   var url2 = "<?=base_url()?>index.php/";
-  var urlimg = "<?=base_url()?>/img/";
   $(document).ready(function(){
 
      $.post("<?=base_url()?>index.php/Home/get_total_dia/", function(data) {

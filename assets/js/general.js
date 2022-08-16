@@ -35,16 +35,13 @@ function tipo_ticket(data){
   data['datos'][0].tipo_ticket == '2' ? reimprimir_ticket2(data) : reimprimir_recibo(data);
 }
 
-function reimprimir_ticket2(data)
-  {
-        var date = new Date();        
+function reimprimir_ticket2(data){
+    var date = new Date();        
     var options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'};
     var mywindow = window.open('', 'my div', 'height=750,width=720');
     var elementoG = '';
     var elementoU = '';
     var elementoD = '';
-    /*let Decimal = data.total;
-    let cantidad_dec = Decimal.substring(Decimal.indexOf(".")+1, Decimal .length);*/
     var a = data.total;
     var after_dot = (a.toString().split(".")[1]);
     TotalDevengado = a.replace(/,/g, "");
@@ -59,18 +56,6 @@ function reimprimir_ticket2(data)
     elementoG += '<p>La cantidad de: <br><b>'+NumeroALetras(TotalDevengado)+' '+after_dot+'/100 M.N.</b></p>';
     elementoG += '<p>Forma de pago: <br>';
     var sep ='';
-    /**/
-    // for( b=0;b<data['forma_pago'].length;b++ ){
-    //   if((b+1)<data['forma_pago'].length)
-    //   {
-    //       sep = ', ';
-    //   }
-    //   else
-    //   {
-    //     sep = '';
-    //   }
-    //   elementoG += '<b>'+data['forma_pago'][b]+sep+'</b>';
-    // }
     elementoG += '<b>'+data['datos'][0].metodo_pagos+sep+'</b>';
     elementoG += '</p>';
 
@@ -86,34 +71,7 @@ function reimprimir_ticket2(data)
       elementoG += '<label>DESGLOSE DEL PAGO:</label><br>';
       var tc = 0; var td =0; var ef = 0; var efP =0; var infl =0; var tb =0;
       var array_metodo = [];
-        /**/for(var i=0; i<data['metodos_usados'].length; i++)
-        {
-          // switch(data['metodos_usados'][i]['metodo']){
-          //   case 'Tarjeta de crédito':
-          //     tc =  tc+parseFloat(data['metodos_usados'][i]['cantidad']);
-          //     array_metodo[0] = ['Tarjeta de crédito', tc];
-          //   break;
-          //   case 'Tarjeta de débito':
-          //     td =  td+parseFloat(data['metodos_usados'][i]['cantidad']);
-          //     array_metodo[1] = ['Tarjeta de débito', td];
-          //   break;
-          //   case 'Efectivo':
-          //     ef =  ef+parseFloat(data['metodos_usados'][i]['cantidad']);
-          //     array_metodo[2] = ['Efectivo', ef];
-          //   break;
-          //   case 'Efectivo + protegida':
-          //     efP =  efP+parseFloat(data['metodos_usados'][i]['cantidad']);
-          //     array_metodo[3] = ['Efectivo + protegida', efP];
-          //   break;
-          //   case 'Influencer':
-          //     infl =  infl+parseFloat(data['metodos_usados'][i]['cantidad']);
-          //     array_metodo[4] = ['Influencer', infl];
-          //   break;
-          //   case 'Transferencia bancaria':
-          //     tb =  tb+parseFloat(data['metodos_usados'][i]['cantidad']);
-          //     array_metodo[5] = ['Transferencia bancaria', tb];
-          //   break;
-          // }
+        for(var i=0; i<data['metodos_usados'].length; i++){
           elementoG += "<b> " + (data['metodos_usados'][i]['metodo']).toUpperCase() +": </b>";
           elementoG += "$ "+formatMoney(data['metodos_usados'][i]['cantidad'])+"<br>";
         }
@@ -168,52 +126,6 @@ function reimprimir_ticket2(data)
         },(1000));
     });
   }
-// function reimprimir_ticket(data){		 
-//     var date = new Date(data[0].pago_realizado);    	
-//     const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'};
-//     const options2 = { year: 'numeric', month: 'short', day: 'numeric' };
-//     var mywindow = window.open('', 'my div', 'height=750,width=720');
-//     var elementoG = '';
-//     var elementoU = '';
-//     var elementoD = '';
-//     var total = 0;
-//     for (i = 0; i<data.length; i++){
-//         total += data[i].importe;			
-//     }
-//     var stringImporte = NumeroALetras(total);
-//     elementoG += '<html><head></head><body style="text-align:center;font-family: Arial, Helvetica, sans-serif; font-size:12px"><img id="myImage" src="https://prueba.gphsis.com/bodyeff/assets/img/logo.png" alt="logo" width="100%" />';
-//     elementoG += '<p>Plaza Midtown Jalisco, Local 53-A planta alta, Italia Providencia Guadalajara, Jal.<br>Teléfono: (332) 310 59 07<br>'+date.toLocaleDateString("es-ES", options)+'<p>';
-//     elementoG += '';
-//     elementoG += '<p>FOLIO: '+data[0].folio+' <br>REFERENCIA: '+data[0].referencias+' <br>Recibi de: <br>'+data[0].nombre_cliente+'</p>';
-//     elementoG += '<p>La cantidad de: <br><b>'+stringImporte+' 0/0 CENTAVOS M.N</b></p>';
-//     elementoG += '<p>Forma de pago: <br><b>'+data[0].metodo_pagos+'</b></p>';
-//     elementoG += '<p>Pago de servicios<br>';
-//     for( n=0;n<data.length;n++ ){
-//         var date2 = new Date(data[n].fecha_pago);    	
-//         sum = n +1;
-//         elementoG += sum+' pago  '+date2.toLocaleDateString("es-ES", options2)+' $'+formatMoney(data[0].importe)+'<br>';
-//     }
-//     elementoG += '</p><br>';
-//     elementoG += '<p style="text-align:right!important"><b>SUBTOTAL:</b> $'+formatMoney(total)+'<br>';
-//     elementoG += '<b>IVA:</b> $0.00<br>';
-//     elementoG += '<b>TOTAL:</b> $'+formatMoney(total)+'<br>';
-//     elementoG += '<p style="font-size:12px!important">¡En Body Effect queremos lo mejor para ti!<br>Si requiere factura favor de solicitarla al momento o bien proporcionar sus datos fiscales al siguiente correo electrónico <b>facturacion@bodyeffect.com.mx</b> en un tiempo no mayor a 72 horas se le hará llegar su comprobante<br><br><br></p>';
-//     elementoU = '<p><i>(copia cliente)</i></p><hr><br>';
-//     elementoD = '<p><i>(copia administrador)</i></p><br><br><br><hr><br><br>';
-//     elementoG = elementoG + elementoU + elementoG + elementoD + '</body></html>';
-//     mywindow.document.write(elementoG);
-    
-//     $(mywindow).ready(function() {  
-//     // Call Later In Stack - really should be onload events or base64 images inline
-//     setTimeout(
-//         function(){
-//         mywindow.document.close(); // necessary for IE >= 10
-//         mywindow.focus(); // necessary for IE >= 10
-//         mywindow.print();
-//         mywindow.close();
-//         },(1000));
-//     });
-// }
 
 function reimprimir_recibo(data){
 index_ticket = $('#id_ticket').val();
@@ -257,7 +169,6 @@ window.open(url+"index.php/Archivos/reimprimir_recibo/"+index_ticket);
     if(strMiles == "") return strCentenas;
 
     return strMiles + " " + strCentenas;
-  //return Seccion(num, divisor, "UN MIL", "MIL") + " " + Centenas(resto);
   }//Miles()
 
   function Millones(num){

@@ -294,7 +294,6 @@ require("menu.php");
 					</div>
 				</div>
 			</div>
-		<!-- background-image: url(https://localhost:9081/bodyeff/assets/img/opcion_body_efect_3.jpg); -->
 	</div>
 <?php include("footer.php")?>
 </div>
