@@ -7,6 +7,8 @@ class Home extends CI_Controller{
 
 		$this->load->model("Ajustes_model");
 		date_default_timezone_set('America/Mexico_city');
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('671', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
 	}
 

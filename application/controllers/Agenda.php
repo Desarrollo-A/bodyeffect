@@ -6,8 +6,9 @@ class Agenda extends CI_Controller {
 		parent::__construct();
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Headers: Content-Type');
-
 		$this->load->model('Agenda_model');
+		$this->load->library(array('Jwt_actions'));
+    	$this->jwt_actions->authorize('636', $_SERVER['HTTP_HOST']);
 		$this->validateSession();
 	}
 

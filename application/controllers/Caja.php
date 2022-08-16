@@ -7,6 +7,8 @@ class Caja extends CI_Controller
 	public function __construct(){
         parent::__construct();
             $this->load->model(array('Clientes_model'));
+			$this->load->library(array('Jwt_actions'));
+    		$this->jwt_actions->authorize('847', $_SERVER['HTTP_HOST']);
 			$this->validateSession();
 	}
   

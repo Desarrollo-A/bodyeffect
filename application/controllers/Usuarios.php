@@ -8,6 +8,8 @@ class Usuarios extends CI_Controller
 		parent::__construct();
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Headers: Content-Type');
+		$this->load->library(array('Jwt_actions'));
+        $this->jwt_actions->authorize('488', $_SERVER['HTTP_HOST']);
 		$this->load->model("Usuarios_model");
 		$this->validateSession();
 	}
@@ -213,5 +215,23 @@ class Usuarios extends CI_Controller
             echo json_encode($response);
         }
     }
+
+	public function dashboardExternal(){
+		$url = 'https://prueba.gphsis.com/sisfusion/Api/external_dashboard';
+
+		$tkn = $this->jwt_actions->generateToken_dashboard();
+        // $fields_string = http_build_query($dataFiscal);
+        $ch = curl_init($url);
+        # Setup request to send json via POST.
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization: Bearer '.$tkn));
+        # Return response instead of printing.
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        # Send request.
+        $result = curl_exec($ch);
+		print_r($result);
+
+        curl_close($ch);
+      
+	}
 
 }
