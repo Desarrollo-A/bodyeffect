@@ -25,10 +25,6 @@ require("menu.php");
 									<!-- Nav tabs -->
 									<ul class="nav nav-tabs" role="tablist">
 										<div class="col-md-1"><li role="presentation" class="active"><a href="#cliente1" aria-controls="cliente1" role="tab" data-toggle="tab" class="clientesSTl">Cliente 1</a></li></div>
-										<!--<div class="col-md-1"><li role="presentation"><a href="#cliente2" aria-controls="cliente2" role="tab" data-toggle="tab" class="clientesSTl">Cliente 2</a></li></div>
-										<div class="col-md-1"><li role="presentation"><a href="#cliente3" aria-controls="cliente3" role="tab" data-toggle="tab" class="clientesSTl">Cliente 3</a></li></div>
-										<div class="col-md-1"><li role="presentation"><a href="#cliente4" aria-controls="cliente4" role="tab" data-toggle="tab" class="clientesSTl">Cliente 4</a></li></div>
-										<div class="col-md-1"><li role="presentation"><a href="#cliente5" aria-controls="cliente5" role="tab" data-toggle="tab" class="clientesSTl">Cliente 5</a></li></div>-->
 									</ul>
 									<form id="miform" method="post">
 										<!-- Tab panes -->
@@ -877,14 +873,6 @@ require("menu.php");
 																	</select>
 																</div>
 															</div>
-															<!-- <div class="col-md-3 pr-1">
-																<div class="form-group">
-																	<label>Tipo cobro</label>
-																	<select  name="tipoCobro[]" id="tipoCobro" class="form-control listado-tiposCobro g-disabld" autocomplete="off">
-																		<option value="0">Seleccione una opción</option>
-																	</select>
-																</div>
-															</div> -->
 															<div class="col-md-4">
 																<div class="from-group colCreDeb">
 																	<label>Tipo de tarjeta</label>
@@ -977,16 +965,6 @@ require("menu.php");
 																	</select>
 																</div>
 															</div>
-															<!-- <div class="col-md-3 pr-1">
-																<div class="form-group">
-																	<label>Tipo cobro</label>
-																	<select name="tipoCobro[]" id="tipoCobro2" class="form-control listado-tiposCobro g-disabld" autocomplete="off">
-																		<option value="0">
-																		Seleccione una opción
-																		</option>
-																	</select>
-																</div>
-															</div> -->
 															<div class="col-md-4">
 																<div class="from-group colCreDeb">
 																	<label>Tipo de tarjeta</label>
@@ -1073,24 +1051,6 @@ require("menu.php");
 											<hr>
 											<div class="box-detalle-fin d-none">
 												<div class="row">
-													<!-- <div class="col-sm-5">
-														<div class="row">
-															<div class="col-sm-6">
-																<label for="compartida">
-																	Venta compartida
-																</label>
-															</div>
-															<div class="col-sm-6">
-																<input id="compartida" class="g-disabld" name="compartida" type="checkbox"/>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-sm-12 box-compartida select-disabld d-none">
-																<select id="enfermeras" name="enfermeras" class="select-disabld form-control listado-enfermeras"></select>
-															</div>
-														</div>
-													</div> -->
-
 													<div class="col-sm-7">
 														<div class="row">
 															<div class="col-sm-10 text-right">
@@ -1111,7 +1071,6 @@ require("menu.php");
 													</div>
 												</div>
 											</div>
-
 											<br>
 											<div class="row">
 												<div class="col-md-12">
@@ -1127,14 +1086,6 @@ require("menu.php");
 														</tr>
 														</thead>
 														<tbody>
-														<!-- <tr>
-															<th scope="row">Recibo de Pago</th>
-															<td>
-																<i class="fas fa-print documents" onClick="imprimirReciboPago();"></i>
-																<i title="Escanear recibo de pago." class="fas fa-copy documents" onclick="scanRecibo();"></i>
-																<i title="Ver recibo escaneado" class="fas fa-eye eye-recibo documents" onclick="showDocument5()" style="display:none;"></i>
-															</td>
-														</tr> -->
 														<tr>
 															<th scope="row">1 Contrato</th>
 															<td>
@@ -1254,10 +1205,6 @@ require("menu.php");
 <div id="modalId" class="modal fade" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="background-color: #525659;">
-			<!-- <div class="modal-header">
-				<h4 class="modal-title nameTittle"></h4>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div> -->
 			<div class="modal-body body-document" style="padding:0px; padding-bottom:10px">
 			</div>
 		</div>
@@ -1841,21 +1788,11 @@ require("menu.php");
 	}
 
 	function changeEntrance(){
-		/*if( (parseInt($('#efectivo').val()) + parseInt($('#montoTU').val()) + parseInt($('#montoTD').val())) < parseInt($('#aPagar').val()) )
-			$('#btnsubmit').prop('disabled', true);
-		else $('#btnsubmit').prop('disabled', false);*/
-
 		//Validar es venta protegida o normal.
 		if($('#protegida').is(':checked')){
 			$("#referencia").val("0");
 			changeAPagar();
 			$("#entrada").val(parseInt($('#efectivo').val()));
-			/*if (parseInt($('#efectivo').val()) < parseInt($('#aPagar').val())){
-				$('#btnsubmit').prop('disabled', true);
-			}
-			else{
-				$('#btnsubmit').prop('disabled', false);
-			}*/
 		}
 		else{
 			changeAPagar();
@@ -1911,7 +1848,6 @@ require("menu.php");
 			day = 15;
 			day2 = 30;
 		}
-		//  fecha1.setDate(fecha1.getDate()-fecha1.getDate()+1);
 		function createDate(fecha1, day){
 			if(fecha1.getDate() > 29){
 				if(fecha1.getMonth()==0){
@@ -2131,12 +2067,6 @@ require("menu.php");
 				prote = false;
 			}
 			if( v == 5 ){
-				//Regresamos al  estado inicial los tab, Validación* 
-				//chacha
-				/*if($('#formaPago').val() == 5)
-				{
-					$('#btnsubmit').attr('disabled', false);
-				}*/
 			}
 			formas++;
 		});
@@ -3440,7 +3370,6 @@ require("menu.php");
 	$(document).ready(function(){
 		//Modal para seleccionar area inicial
 		jQuery("#modalTipoArea").modal("show");
-		// $('#tp1').prop("disabled", true);
 
 		//Habilitamos formaPago para que sea Multiselect
 		$('#formaPago').multiselect({
@@ -3828,11 +3757,9 @@ require("menu.php");
     for( var i = 0; i<data.length; i++){
       total_hoy += parseFloat(data[i]['suma_hoy_cobros']);
     }
-        // console.log(data.total_vendido_hoy);
         $('#venta_diaria').append(addCommas(total_hoy)+" MXN");
     },'json');
 
-    //get_venta_semanal
     $.post("<?=base_url()?>index.php/Home/get_total_semana/", function(data) {
     var total_semana = 0;
     for( var i = 0; i<data.length; i++){
@@ -3858,12 +3785,10 @@ require("menu.php");
    $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
     $(this).nextUntil('tr.header').slideToggle(100, function(){
     });
-    /*$('.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-up');*/
     });
   $(document).ready(function(){
   });
 	$('#flechaDesplegar').click(function() {
-        //$('#display_advance').toggle('1000');
     	$("i", this).toggleClass("fa-chevron-up fa-chevron-down");
     });
 

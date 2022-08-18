@@ -13,8 +13,7 @@ class Areas extends CI_Controller
 		$this->load->model('Areas_model');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$this->load->view('areas_admin');
 	}
 
@@ -47,7 +46,6 @@ class Areas extends CI_Controller
 			'estatus' => 0
 		);
 		$data = $this->Areas_model->updateGeneral($table, $data_update, $id_area);
-		//print_r($id_area);
 		if($data>=1)
 		{
 			$data_request['success'] = 1;
@@ -72,7 +70,6 @@ class Areas extends CI_Controller
 			'estatus' => 1
 		);
 		$data = $this->Areas_model->updateGeneral($table, $data_update, $id_area);
-		//print_r($id_area);
 		if($data>=1)
 		{
 			$data_request['success'] = 1;
@@ -116,14 +113,11 @@ class Areas extends CI_Controller
 			"no_sesion" => $sesiones,
 			"duracion" => $duracion,
 			"Partes" => $parte,
-			"completo" => $valFinal
+			"completo" => $valFinal,
+			"modificado_por" => $this->session->userdata("inicio_sesion")['id']
 		);
-		/*echo 'Area: '.$id_area."<br>";
-		print_r($data_update);*/
 		$table = 'areas';
-
 		$request = $this->Areas_model->updateGeneral($table, $data_update, $id_area);
-
 		if($request >= 1)
 		{
 			$data['success'] = 1;
@@ -156,6 +150,7 @@ class Areas extends CI_Controller
 			"estatus" => 1,
 			"fecha_creacion" => date('Y-m-d H:i:s'),
 			"creado_por" => $this->session->userdata("inicio_sesion")['id'],
+			"modificado_por" => $this->session->userdata("inicio_sesion")['id'],
 			"tipo" => $tipo,
 			"no_sesion" => $sesiones,
 			"duracion" => $duracion,
