@@ -71,6 +71,13 @@ require "statusModals.php";
                             <p>&nbsp;&nbsp;Chris</p>
                         </a>
                     </li>
+                    <li class="<?php if($page == 'inicio'){echo 'active';} ?>">
+                    <!-- <li> -->
+                        <a class="nav-link active" href="<?= site_url("Usuarios/dashboardExternalAu")?>">
+                            <i class="fas fa-home"></i>
+                            <p>&nbsp;&nbsp;Aurea</p>
+                        </a>
+                    </li>
                     <?php
                     if ($this->session->userdata('inicio_sesion')["id_rol"] != 6 && $this->session->userdata('inicio_sesion')["id_rol"] != 7) { // TODOS LOS ROLES MENOS CONTROL INTERNO VERÁN ESTAS 4 OPCIONES DE MENÚ
                     ?>
