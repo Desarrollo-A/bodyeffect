@@ -50,7 +50,7 @@ class Cobranza_model extends CI_Model {
     }
 
     function insert_pago_quincenas($id_contrato, $id_usuario_log, $tipo, $referencia, $monto, $id_folio){
-        return $this->db->query("INSERT INTO pago_quincenas VALUES(".$id_contrato.", GETDATE(), ".$id_usuario_log.", ".$tipo.", '".$referencia."', ".$monto.", ".$id_folio.", modificado_por = ".$id_usuario_log.");");
+        return $this->db->query("INSERT INTO pago_quincenas VALUES(".$id_contrato.", GETDATE(), ".$id_usuario_log.", ".$tipo.", '".$referencia."', ".$monto.", ".$id_folio.", ".$id_usuario_log.")");
     }
 
     function insert_historial_pago($id_cliente, $id_usuario_log, $id_contrato){        

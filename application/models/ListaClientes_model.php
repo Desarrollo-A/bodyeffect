@@ -67,14 +67,19 @@ class ListaClientes_model extends CI_Model {
     }
 
 	function get_clientes_activos($beginDate, $endDate){
-        return $this->db->query("SELECT cl.id_cliente, CONCAT(cl.nombre,' ',cl.apellido_paterno,' ',cl.apellido_materno) AS nombre, co.id_contrato, STRING_AGG(ar.nombre, ', ') AS valor, COUNT(ar.id_area) as numareas, cl.correo, cl.telefono, cl.tipo, cl.estatus as estatus_cl, co.fecha_contrato, expd.ife, expd.contrato, expd.carta, expd.tarjeta, expd.recibo, co.servicio, isNULL(co.observaciones, 'No tiene comentarios') as observaciones, co.estatus
-		FROM contratos co
-		INNER JOIN clientes cl ON co.id_cliente=cl.id_cliente AND cl.fecha_creacion BETWEEN '$beginDate 00:00:00' AND '$endDate 23:59:59'
-		LEFT JOIN [paquetes] AS pq ON pq.id_contrato = co.id_contrato
-		LEFT JOIN [clientes_x_areas] AS cxa ON cxa.id_paquete = pq.id_paquete AND cxa.estatus = 1
-		LEFT JOIN [areas] AS ar ON ar.id_area=cxa.id_area
-		LEFT JOIN [expediente] AS expd ON expd.id_contrato=co.id_contrato
-		WHERE cl.estatus in (1,2,3) AND co.estatus NOT IN (0) GROUP BY cl.id_cliente, cl.nombre, cl.apellido_paterno, cl.apellido_materno, co.id_contrato, cl.correo, cl.telefono, cl.tipo, cl.estatus, co.fecha_contrato,expd.ife, expd.contrato, expd.carta, expd.tarjeta, expd.recibo, co.servicio, co.observaciones, co.estatus;");
+		return $this->db->query("SELECT cl.id_cliente, CONCAT(cl.nombre,' ',cl.apellido_paterno,' ',cl.apellido_materno) AS nombre, 
+		co.id_contrato, STRING_AGG(ar.nombre, ', ') AS valor, COUNT(ar.id_area) as numareas, cl.correo, cl.telefono, cl.tipo, 
+		cl.estatus as estatus_cl, co.fecha_contrato, CAST(expd.ife AS VARCHAR(MAX)) ife, CAST(expd.contrato AS VARCHAR(MAX)) contrato, CAST(expd.carta AS VARCHAR(MAX)) carta, CAST(expd.tarjeta AS VARCHAR(MAX)) tarjeta, CAST(expd.recibo AS VARCHAR(MAX)) recibo, co.servicio, 
+		isNULL(co.observaciones, 'No tiene comentarios') as observaciones, co.estatus 
+		FROM contratos co 
+		INNER JOIN clientes cl ON co.id_cliente=cl.id_cliente AND cl.fecha_creacion BETWEEN '$beginDate 00:00:00' AND '$endDate  23:59:59' 
+		LEFT JOIN [paquetes] AS pq ON pq.id_contrato = co.id_contrato 
+		LEFT JOIN [clientes_x_areas] AS cxa ON cxa.id_paquete = pq.id_paquete AND cxa.estatus = 1 
+		LEFT JOIN [areas] AS ar ON ar.id_area=cxa.id_area 
+		LEFT JOIN [expediente] AS expd ON expd.id_contrato=co.id_contrato 
+		WHERE cl.estatus in (1,2,3) AND co.estatus NOT IN (0) 
+		GROUP BY cl.id_cliente, cl.nombre, cl.apellido_paterno, cl.apellido_materno, co.id_contrato, cl.correo, cl.telefono, 
+		cl.tipo, cl.estatus, co.fecha_contrato, CAST(expd.ife AS VARCHAR(MAX)), CAST(expd.contrato AS VARCHAR(MAX)), CAST(expd.carta AS VARCHAR(MAX)), CAST(expd.tarjeta AS VARCHAR(MAX)), CAST(expd.recibo AS VARCHAR(MAX)), co.servicio, co.observaciones, co.estatus");
     }
 
      function get_clientes(){

@@ -130,8 +130,8 @@ class Cobranza extends CI_Controller {
 
 		if ($referencias == '') $referencias = '0';
 		for($o=0; $o<count($id_quincena); $o++){				
-			$this->Cobranza_model->update_quincenas_n($id_quincena[$o], $id_folio);	
-			$data_desglose[] = $fecha_quincena[$o] ."    $". $importe_quincena[$o];
+			$this->Cobranza_model->update_quincenas_n($id_quincena[$o], $id_folio, $id_usuario_log);	
+			$data_desglose[] = $fecha_quincena[$o] ."$ ". $importe_quincena[$o];
 		}
 		
 		/*monto_pago, formas de pago, numero de ticket, pagos*/

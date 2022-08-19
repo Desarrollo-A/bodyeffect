@@ -301,7 +301,7 @@ class ClientesReventaInst extends CI_Controller
 								"estatus" => 1,
 								"fecha_creacion" => date("Y-m-d H:i:s"),
 								"creado_por" => $user,
-								"modificado_por" => $user
+								"modificado_por" => $user,
 								"id_banco" => $banco,
 								"tipo_tarjeta" => $formaPago,
 								"tipo_cobro" => $tipoCobro,
@@ -413,7 +413,7 @@ class ClientesReventaInst extends CI_Controller
 									"numero_pago" => ($q + 1),
 									"fecha_creacion" => date("Y-m-d H:i: s"),
 									"creado_por" => $user,
-									"modificado_por" => $user
+									"modificado_por" => $user,
 									"id_contrato" => $id_contrato));
 							}
 						}
