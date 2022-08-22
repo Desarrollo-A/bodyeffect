@@ -58,30 +58,20 @@ require "statusModals.php";
                 </div>
                 <ul class="nav">
                     <li class="<?php if($page == 'inicio'){echo 'active';} ?>">
-                    <!-- <li> -->
                         <a class="nav-link active" href="<?= site_url("Home")?>">
                             <i class="fas fa-home"></i>
                             <p>&nbsp;&nbsp;Inicio</p>
                         </a>
                     </li>
                     <li class="<?php if($page == 'inicio'){echo 'active';} ?>">
-                    <!-- <li> -->
                         <a class="nav-link active" href="<?= site_url("Usuarios/dashboardExternal")?>">
                             <i class="fas fa-home"></i>
                             <p>&nbsp;&nbsp;Chris</p>
                         </a>
                     </li>
-                    <li class="<?php if($page == 'inicio'){echo 'active';} ?>">
-                    <!-- <li> -->
-                        <a class="nav-link active" href="<?= site_url("Usuarios/dashboardExternalAu")?>">
-                            <i class="fas fa-home"></i>
-                            <p>&nbsp;&nbsp;Aurea</p>
-                        </a>
-                    </li>
                     <?php
                     if ($this->session->userdata('inicio_sesion')["id_rol"] != 6 && $this->session->userdata('inicio_sesion')["id_rol"] != 7) { // TODOS LOS ROLES MENOS CONTROL INTERNO VERÁN ESTAS 4 OPCIONES DE MENÚ
                     ?>
-                    <!-- <li> -->
                     <li class="<?php if($page == 'venta_nueva'){echo 'active';} ?>">
                         <a class="nav-link" href="<?= site_url("Clientes")?>"><i class='fa fa-plus-circle'></i><p>&nbsp;&nbsp;Venta nueva</p></a>
                     </li>
@@ -93,11 +83,6 @@ require "statusModals.php";
                     <li class="<?php if($page == 'agenda_dep'){echo 'active';} ?>">
                         <a class="nav-link" href="<?= site_url("Agenda")?>"><i class='fa fa-calendar'></i><p>&nbsp;&nbsp;Agenda</p></a>
                     </li>
-                    <!-- <li> -->
-                    <!-- <li class="<?php if($page == 'agenda_mol'){echo 'active';} ?>">
-                        <a class="nav-link" href="<?= site_url("AgendaMoldeo")?>"><i class='fa fa-calendar'></i><p>&nbsp;&nbsp;Agenda Moldeo</p></a>
-                    </li> -->
-                    <!-- <li> -->
                     <li class="<?php if($page == 'print_ticket'){echo 'active';} ?>">
                         <div class="nav-link">
                             <button type="button" class="btn-menu p-0" data-toggle="modal" data-target="#modalReimprimirTk" style="border:none; background-color:transparent; color:#ffffff; font-weight:700; opacity:.86; font-size:12px; line-height:31px"><i class="far fa-copy"></i>REIMPRIMIR TICKET</button>
